@@ -1,39 +1,55 @@
 package love.yippy.chan;
 
-import android.app.Activity;
+import love.yippy.chan.fragment.SampleListFragment;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends SlidingFragmentActivity {
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 		
-	    final TextView textView = (TextView)this.findViewById(R.id.testText);
-		Button btn = (Button)this.findViewById(R.id.testButton);
-		btn.setOnClickListener(new OnClickListener(){
+		setContentView(R.layout.activity_main);
 
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				textView.setText("hahah");
-			}
-			
-		});
+		SlidingMenu menu = this.getSlidingMenu();
+		menu.setMode(SlidingMenu.LEFT);
+		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		menu.setShadowWidthRes(R.dimen.sliding_menu_shadow_width);
+		menu.setShadowDrawable(R.drawable.shadow);
+		menu.setBehindOffsetRes(R.dimen.sliding_menu_offset);
+		menu.setFadeDegree(0.35f);
+		
+		this.setBehindContentView(R.layout.menu_frame);
+		FragmentManager fm = this.getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		SampleListFragment listFragment = new SampleListFragment();
+		ft.replace(R.id.menu_frame, listFragment);
+		ft.commit();
+		
+		this.getSupportActionBar().setDisplayShowHomeEnabled(true);
+		this.getSupportActionBar().setDisplayShowTitleEnabled(true);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+	public boolean onCreateOptionMenu(Menu menu){
+		this.getSupportMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	
+	public boolean onOptionItemSelected(MenuItem item){
+		switch(item.getItemId()){
+		case android.R.id.home:
+			this.toggle();
+			return true;
+		}
+		
+		return super.onOptionsItemSelected(item);
+	}
 }
