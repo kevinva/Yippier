@@ -4,14 +4,14 @@ import love.yippy.chan.fragment.SampleListFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.TextView;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
-
-public class MainActivity extends SlidingFragmentActivity {
+public class MainActivity extends SlidingFragmentActivity implements ActionBar.TabListener{
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,45 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 		setContentView(R.layout.activity_main);
 
+		this.initLayout();
+
+	}
+
+	@Override
+	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		TextView selected = (TextView)this.findViewById(R.id.tmp_selected);
+		selected.setText("Selected: " + tab.getText());
+	}
+
+	@Override
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+//	public boolean onCreateOptionMenu(Menu menu){
+//		//this.getSupportMenuInflater().inflate(R.menu.main, menu);
+//		return true;
+//	}
+//	
+//	public boolean onOptionItemSelected(MenuItem item){
+//		switch(item.getItemId()){
+//		case android.R.id.home:
+//			this.toggle();
+//			return true;
+//		}
+//		
+//		return super.onOptionsItemSelected(item);
+//	}
+	
+	private void initLayout(){
 		SlidingMenu menu = this.getSlidingMenu();
 		menu.setMode(SlidingMenu.LEFT);
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
@@ -34,22 +73,14 @@ public class MainActivity extends SlidingFragmentActivity {
 		ft.replace(R.id.menu_frame, listFragment);
 		ft.commit();
 		
-		this.getSupportActionBar().setDisplayShowHomeEnabled(true);
-		this.getSupportActionBar().setDisplayShowTitleEnabled(true);
-	}
-
-	public boolean onCreateOptionMenu(Menu menu){
-		this.getSupportMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-	
-	public boolean onOptionItemSelected(MenuItem item){
-		switch(item.getItemId()){
-		case android.R.id.home:
-			this.toggle();
-			return true;
+		this.getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		for(int i = 1; i <= 3; i++){
+			ActionBar.Tab tab = this.getSupportActionBar().newTab();
+			tab.setText("Tab " + i);
+			tab.setTabListener(this);
+			this.getSupportActionBar().addTab(tab);
 		}
-		
-		return super.onOptionsItemSelected(item);
+		this.getSupportActionBar().setDisplayShowHomeEnabled(false);
+		this.getSupportActionBar().setDisplayShowTitleEnabled(false);
 	}
 }
