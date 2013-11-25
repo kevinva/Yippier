@@ -4,6 +4,9 @@ import love.yippy.chan.fragment.SampleListFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -20,6 +23,8 @@ public class MainActivity extends SlidingFragmentActivity implements ActionBar.T
 		setContentView(R.layout.activity_main);
 
 		this.initLayout();
+		
+		
 
 	}
 
@@ -82,5 +87,17 @@ public class MainActivity extends SlidingFragmentActivity implements ActionBar.T
 		}
 		this.getSupportActionBar().setDisplayShowHomeEnabled(false);
 		this.getSupportActionBar().setDisplayShowTitleEnabled(false);
+		
+		Button btn = (Button)this.findViewById(R.id.tmp_btn);
+		btn.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				ActionBar.Tab tab = MainActivity.this.getSupportActionBar().getTabAt(1);
+				tab.select();
+			}
+			
+		});
 	}
 }

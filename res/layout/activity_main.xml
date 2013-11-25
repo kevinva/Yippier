@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/content_frame"
     android:layout_width="match_parent"
@@ -9,5 +9,10 @@
 	    android:id="@+id/tmp_selected"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:text="Test"/>   	
-</FrameLayout>
+	    android:text="Test"/>
+	<Button 
+	    android:id="@+id/tmp_btn"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="Test btn"/>	
+</RelativeLayout>
