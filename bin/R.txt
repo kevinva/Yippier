@@ -304,7 +304,7 @@ int id abs__submit_area 0x7f040034
 int id abs__textButton 0x7f040018
 int id abs__title 0x7f040020
 int id abs__up 0x7f04000b
-int id action_settings 0x7f04003e
+int id action_settings 0x7f04003c
 int id content_frame 0x7f040037
 int id disableHome 0x7f040009
 int id edit_query 0x7f04002b
@@ -313,19 +313,17 @@ int id homeAsUp 0x7f040006
 int id left 0x7f040010
 int id listMode 0x7f040002
 int id margin 0x7f040012
-int id menu_frame 0x7f04003a
+int id menu_frame 0x7f040038
 int id normal 0x7f040001
 int id right 0x7f040011
-int id row_icon 0x7f04003b
-int id row_title 0x7f04003c
+int id row_icon 0x7f040039
+int id row_title 0x7f04003a
 int id selected_view 0x7f040014
 int id showCustom 0x7f040008
 int id showHome 0x7f040005
 int id showTitle 0x7f040007
-int id slidingmenumain 0x7f04003d
+int id slidingmenumain 0x7f04003b
 int id tabMode 0x7f040003
-int id tmp_btn 0x7f040039
-int id tmp_selected 0x7f040038
 int id useLogo 0x7f040004
 int id wrap_content 0x7f040000
 int integer abs__max_action_buttons 0x7f080000
@@ -537,7 +535,7 @@ int styleable SherlockSearchView_android_inputType 1
 int styleable SherlockSearchView_android_maxWidth 0
 int styleable SherlockSearchView_iconifiedByDefault 3
 int styleable SherlockSearchView_queryHint 4
-int[] styleable SherlockSpinner { 0x010100af, 0x01010175, 0x01010176, 0x0101017b, 0x01010262, 0x010102ac, 0x010102ad, 0x0101041f }
+int[] styleable SherlockSpinner { 0x010100af, 0x01010175, 0x01010176, 0x0101017b, 0x01010262, 0x010102ac, 0x010102ad, 0x0101043a }
 int styleable SherlockSpinner_android_dropDownHorizontalOffset 5
 int styleable SherlockSpinner_android_dropDownSelector 1
 int styleable SherlockSpinner_android_dropDownVerticalOffset 6
