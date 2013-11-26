@@ -803,8 +803,8 @@ containing a value of this type.
         public static final int abs__primary_text_holo_light=0x7f06000e;
         public static final int black=0x7f06000a;
         public static final int blue=0x7f060008;
-        public static final int green=0x7f060007;
-        public static final int red=0x7f060006;
+        public static final int dark_blue=0x7f060006;
+        public static final int gray_blue=0x7f060007;
         public static final int white=0x7f060009;
     }
     public static final class dimen {
@@ -1072,25 +1072,33 @@ containing a value of this type.
         public static final int abs__textButton=0x7f040018;
         public static final int abs__title=0x7f040020;
         public static final int abs__up=0x7f04000b;
-        public static final int action_settings=0x7f04003c;
+        public static final int action_settings=0x7f040044;
+        public static final int audio_duration_view=0x7f040039;
+        public static final int audios_btn=0x7f04003f;
+        public static final int audios_list_view=0x7f04003c;
+        public static final int audios_main_layout=0x7f04003b;
+        public static final int auido_file_size_view=0x7f04003a;
+        public static final int auido_title_view=0x7f040038;
         public static final int content_frame=0x7f040037;
         public static final int disableHome=0x7f040009;
         public static final int edit_query=0x7f04002b;
         public static final int fullscreen=0x7f040013;
+        public static final int function_bg=0x7f04003d;
         public static final int homeAsUp=0x7f040006;
         public static final int left=0x7f040010;
         public static final int listMode=0x7f040002;
         public static final int margin=0x7f040012;
-        public static final int menu_frame=0x7f040038;
+        public static final int menu_frame=0x7f04003e;
         public static final int normal=0x7f040001;
+        public static final int record_btn=0x7f040040;
         public static final int right=0x7f040011;
-        public static final int row_icon=0x7f040039;
-        public static final int row_title=0x7f04003a;
+        public static final int row_icon=0x7f040041;
+        public static final int row_title=0x7f040042;
         public static final int selected_view=0x7f040014;
         public static final int showCustom=0x7f040008;
         public static final int showHome=0x7f040005;
         public static final int showTitle=0x7f040007;
-        public static final int slidingmenumain=0x7f04003b;
+        public static final int slidingmenumain=0x7f040043;
         public static final int tabMode=0x7f040003;
         public static final int useLogo=0x7f040004;
         public static final int wrap_content=0x7f040000;
@@ -1121,12 +1129,16 @@ containing a value of this type.
         public static final int abs__search_view=0x7f030013;
         public static final int abs__simple_dropdown_hint=0x7f030014;
         public static final int activity_main=0x7f030015;
-        public static final int list=0x7f030016;
-        public static final int menu_frame=0x7f030017;
-        public static final int row=0x7f030018;
-        public static final int sherlock_spinner_dropdown_item=0x7f030019;
-        public static final int sherlock_spinner_item=0x7f03001a;
-        public static final int slidingmenumain=0x7f03001b;
+        public static final int audio_row=0x7f030016;
+        public static final int audios_main=0x7f030017;
+        public static final int function=0x7f030018;
+        public static final int list=0x7f030019;
+        public static final int menu_frame=0x7f03001a;
+        public static final int recorder_main=0x7f03001b;
+        public static final int row=0x7f03001c;
+        public static final int sherlock_spinner_dropdown_item=0x7f03001d;
+        public static final int sherlock_spinner_item=0x7f03001e;
+        public static final int slidingmenumain=0x7f03001f;
     }
     public static final class menu {
         public static final int main=0x7f0b0000;

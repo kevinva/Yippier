@@ -1,6 +1,6 @@
 package love.yippy.chan;
 
-import love.yippy.chan.adapter.ColorPagerAdapter;
+import love.yippy.chan.adapter.FunctionPagerAdapter;
 import love.yippy.chan.fragment.SampleListFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -68,7 +68,7 @@ public class MainActivity extends SlidingFragmentActivity implements ActionBar.T
 		
 		this.vp = new ViewPager(this);
 		vp.setId("VP".hashCode());
-		vp.setAdapter(new ColorPagerAdapter(this.getSupportFragmentManager()));
+		vp.setAdapter(new FunctionPagerAdapter(this.getSupportFragmentManager()));
 		RelativeLayout mainLayout = (RelativeLayout)this.findViewById(R.id.content_frame);
 		mainLayout.addView(vp);
 		vp.setCurrentItem(0);

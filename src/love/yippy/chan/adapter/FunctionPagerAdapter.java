@@ -2,29 +2,23 @@ package love.yippy.chan.adapter;
 
 import java.util.ArrayList;
 
-import love.yippy.chan.R;
-import love.yippy.chan.fragment.ColorFragment;
+import love.yippy.chan.fragment.RecorderFragment;
+import love.yippy.chan.fragment.VoiceMessageFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public class ColorPagerAdapter extends FragmentPagerAdapter {
-	
-	private final int[] COLORS = new int[]{
-			R.color.red,
-			R.color.green,
-	};
+public class FunctionPagerAdapter extends FragmentPagerAdapter {
 	
 	private ArrayList<Fragment> mFragments;
 
-	public ColorPagerAdapter(FragmentManager fm) {
+	public FunctionPagerAdapter(FragmentManager fm) {
 		super(fm);
 		// TODO Auto-generated constructor stub
 		
 		this.mFragments = new ArrayList<Fragment>();
-		for(int color : COLORS){
-			this.mFragments.add(new ColorFragment(color));
-		}
+		this.mFragments.add(new RecorderFragment());
+		this.mFragments.add(new VoiceMessageFragment());
 	}
 
 	@Override
