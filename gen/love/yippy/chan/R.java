@@ -1074,11 +1074,11 @@ containing a value of this type.
         public static final int abs__up=0x7f04000b;
         public static final int action_settings=0x7f040044;
         public static final int audio_duration_view=0x7f040039;
+        public static final int audio_title_view=0x7f040038;
         public static final int audios_btn=0x7f04003f;
         public static final int audios_list_view=0x7f04003c;
         public static final int audios_main_layout=0x7f04003b;
         public static final int auido_file_size_view=0x7f04003a;
-        public static final int auido_title_view=0x7f040038;
         public static final int content_frame=0x7f040037;
         public static final int disableHome=0x7f040009;
         public static final int edit_query=0x7f04002b;

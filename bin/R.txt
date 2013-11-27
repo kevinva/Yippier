@@ -306,11 +306,11 @@ int id abs__title 0x7f040020
 int id abs__up 0x7f04000b
 int id action_settings 0x7f040044
 int id audio_duration_view 0x7f040039
+int id audio_title_view 0x7f040038
 int id audios_btn 0x7f04003f
 int id audios_list_view 0x7f04003c
 int id audios_main_layout 0x7f04003b
 int id auido_file_size_view 0x7f04003a
-int id auido_title_view 0x7f040038
 int id content_frame 0x7f040037
 int id disableHome 0x7f040009
 int id edit_query 0x7f04002b

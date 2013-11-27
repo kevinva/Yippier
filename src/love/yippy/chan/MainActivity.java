@@ -1,7 +1,7 @@
 package love.yippy.chan;
 
 import love.yippy.chan.adapter.FunctionPagerAdapter;
-import love.yippy.chan.fragment.SampleListFragment;
+import love.yippy.chan.fragment.UtilsFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -52,7 +52,7 @@ public class MainActivity extends SlidingFragmentActivity implements ActionBar.T
 		this.setBehindContentView(R.layout.menu_frame);
 		FragmentManager fm = this.getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
-		SampleListFragment listFragment = new SampleListFragment();
+		UtilsFragment listFragment = new UtilsFragment();
 		ft.replace(R.id.menu_frame, listFragment);
 		ft.commit();
 		

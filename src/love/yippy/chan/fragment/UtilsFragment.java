@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SampleListFragment extends ListFragment {
+public class UtilsFragment extends ListFragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.list, null);
@@ -19,25 +19,25 @@ public class SampleListFragment extends ListFragment {
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		SampleAdapter adapter = new SampleAdapter(getActivity());
-		for (int i = 0; i < 20; i++) {
-			adapter.add(new SampleItem("Sample List", android.R.drawable.ic_menu_search));
-		}
+		UtilsAdapter adapter = new UtilsAdapter(getActivity());
+		adapter.add(new UtilItem("ÉèÖÃ", android.R.drawable.ic_menu_search));
+		adapter.add(new UtilItem("¹ØÓÚ", android.R.drawable.ic_menu_send));
 		setListAdapter(adapter);
 	}
 
-	private class SampleItem {
+	private class UtilItem {
 		public String tag;
 		public int iconRes;
-		public SampleItem(String tag, int iconRes) {
+		
+		public UtilItem(String tag, int iconRes) {
 			this.tag = tag; 
 			this.iconRes = iconRes;
 		}
 	}
 
-	public class SampleAdapter extends ArrayAdapter<SampleItem> {
+	public class UtilsAdapter extends ArrayAdapter<UtilItem> {
 
-		public SampleAdapter(Context context) {
+		public UtilsAdapter(Context context) {
 			super(context, 0);
 		}
 
@@ -54,4 +54,5 @@ public class SampleListFragment extends ListFragment {
 		}
 
 	}
+	
 }
