@@ -9,4 +9,7 @@ public class Constants {
 	public static final String AUDIO_DIR = "recording";
 	public static final String VOICE_MESSAGE_DIR = "message";
 	
+	public static final int MESSAGE_RECORDING_AMPLITUDE = 100; 
+	public static final String AMPLITUDE_KEY = "currentAmpl";
+	
 }
