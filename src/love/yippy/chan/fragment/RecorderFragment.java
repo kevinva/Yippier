@@ -67,12 +67,16 @@ public class RecorderFragment extends Fragment {
 						if(Constants.DEBUG){
 							Log.v(Constants.DEBUG_TAG, "RecorderFragment: dir = " + dir);
 
-						}
-						
+						}						
 						
 						File dirFile = new File(dir);
 						if(!dirFile.exists()){
 							dirFile.mkdirs();
+						}
+						
+						String filePath = dir + File.separator + System.currentTimeMillis() + ".amr";
+						if(mRecorder != null){
+							mRecorder.setOutputFile(filePath);
 						}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -109,6 +113,7 @@ public class RecorderFragment extends Fragment {
 	private void initRecorder(){
 		this.mRecorder = new MediaRecorder();
 		mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-
+		mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+		mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
 	}
 }
