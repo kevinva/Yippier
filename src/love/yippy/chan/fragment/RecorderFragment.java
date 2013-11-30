@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import love.yippy.chan.AudiosActivity;
 import love.yippy.chan.R;
+import love.yippy.chan.utils.AudioFileHandler;
 import love.yippy.chan.utils.Constants;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -28,6 +29,7 @@ public class RecorderFragment extends Fragment {
 	
 	private MediaRecorder mRecorder;
 	private boolean mRecording;
+	private String mCurrentFilename;
 	
 	private Handler mRecordingHandler = new Handler(){
 		
@@ -115,8 +117,9 @@ public class RecorderFragment extends Fragment {
 							File dirFile = new File(dir);
 							if(!dirFile.exists()){
 								dirFile.mkdirs();
-							}						
-							String filePath = dir + File.separator + System.currentTimeMillis() + ".amr";
+							}					
+							mCurrentFilename = System.currentTimeMillis() + ".amr";
+							String filePath = dir + File.separator + mCurrentFilename;
 							mRecorder = initRecorder(filePath);
 							if(mRecorder != null){
 								mRecorder.prepare();
@@ -146,10 +149,11 @@ public class RecorderFragment extends Fragment {
 					
 					mRecording = false;
 					
+					AudioFileHandler.saveAudioConfiguration(getActivity(), mCurrentFilename, "Î´ÃüÃû");
+					
 					Button click = (Button) v;
 					click.setText("Rec");
 				}
-
 				
 			}
 		});
@@ -163,7 +167,6 @@ public class RecorderFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-
 	}
 
 	@Override
