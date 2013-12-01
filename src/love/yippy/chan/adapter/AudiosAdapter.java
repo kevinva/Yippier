@@ -1,6 +1,7 @@
 package love.yippy.chan.adapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import love.yippy.chan.R;
 import android.content.Context;
@@ -10,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class AudiosAdapter<YippyAudio> extends BaseAdapter {
+public class AudiosAdapter extends BaseAdapter {
 
-	private ArrayList<YippyAudio> mAudios;
+	private ArrayList<HashMap<String, String>> mAudios;
 	private Context mContext;
 	private LayoutInflater mInflater;
 	
@@ -22,7 +23,7 @@ public class AudiosAdapter<YippyAudio> extends BaseAdapter {
 		TextView fileSizeView;
 	}
 	
-	public AudiosAdapter(Context ctx, ArrayList<YippyAudio> list){
+	public AudiosAdapter(Context ctx, ArrayList<HashMap<String, String>> list){
 		this.mContext = ctx;
 		this.mAudios = list;
 		this.mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -68,5 +69,4 @@ public class AudiosAdapter<YippyAudio> extends BaseAdapter {
 		
 		return convertView;
 	}
-
 }

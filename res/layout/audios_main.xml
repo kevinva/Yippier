@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/audios_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    >
     
-    <ListView 
-        android:id="@+id/audios_list_view"
+    <TextView
+        android:id="@+id/no_audios_label"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:text="亲, 暂无音频！"
+        android:layout_gravity="center"
         />
+    
+    <LinearLayout
+        android:id="@+id/audios_list_layout"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:orientation="vertical" 
+    	>   
+     
+    	<ListView 
+        	android:id="@+id/audios_list_view"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	/>
+    
+	</LinearLayout>
+    
+    
+</FrameLayout>
 
-</LinearLayout>

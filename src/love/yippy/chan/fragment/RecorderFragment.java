@@ -153,9 +153,8 @@ public class RecorderFragment extends Fragment {
 					
 					Button click = (Button) v;
 					click.setText("Rec");
-				}
-				
-			}
+				}				
+			}			
 		});
 		
 		return parentLayout;
