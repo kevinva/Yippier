@@ -18,9 +18,9 @@ public class AudiosAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	
 	static class ViewHolder{
-		TextView titleView;
-		TextView durationView;
-		TextView fileSizeView;
+		TextView titleLabel;
+		TextView durationLabel;
+		TextView fileSizeLabel;
 	}
 	
 	public AudiosAdapter(Context ctx, ArrayList<HashMap<String, String>> list){
@@ -57,15 +57,18 @@ public class AudiosAdapter extends BaseAdapter {
 		if(convertView == null){
 			convertView = mInflater.inflate(R.layout.audio_row, parent, false);
 			holder = new ViewHolder();
-			holder.titleView = (TextView) convertView.findViewById(R.id.audio_title_view);
-			holder.durationView = (TextView) convertView.findViewById(R.id.audio_duration_view);
-			holder.fileSizeView = (TextView) convertView.findViewById(R.id.auido_file_size_view);
-			
+			holder.titleLabel = (TextView) convertView.findViewById(R.id.audio_title_view);
+			holder.durationLabel = (TextView) convertView.findViewById(R.id.audio_duration_view);
+			holder.fileSizeLabel = (TextView) convertView.findViewById(R.id.auido_file_size_view);			
 			convertView.setTag(holder);
 		}
 		else{
 			holder = (ViewHolder) convertView.getTag();
 		}
+		HashMap<String, String> audioInfo = mAudios.get(position);
+		holder.titleLabel.setText(audioInfo.get("title"));
+		holder.durationLabel.setText(audioInfo.get("duration"));
+		holder.fileSizeLabel.setText(audioInfo.get("fileSize"));
 		
 		return convertView;
 	}

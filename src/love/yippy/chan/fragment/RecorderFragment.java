@@ -9,6 +9,7 @@ import love.yippy.chan.utils.AudioFileHandler;
 import love.yippy.chan.utils.Constants;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 public class RecorderFragment extends Fragment {
 	
 	private MediaRecorder mRecorder;
+	private MediaPlayer mPlayer;
 	private boolean mRecording;
 	private String mCurrentFilename;
 	
@@ -111,7 +113,6 @@ public class RecorderFragment extends Fragment {
 							
 							if(Constants.DEBUG){
 								Log.v(Constants.DEBUG_TAG, "RecorderFragment: dir = " + dir);
-
 							}						
 							
 							File dirFile = new File(dir);
@@ -149,7 +150,23 @@ public class RecorderFragment extends Fragment {
 					
 					mRecording = false;
 					
-					AudioFileHandler.saveAudioConfiguration(getActivity(), mCurrentFilename, "Î´ÃüÃû");
+					if(mPlayer == null){
+						mPlayer = new MediaPlayer();
+					}
+					
+					String dir;
+					try {
+						dir = Environment.getExternalStorageDirectory().getCanonicalPath() + File.separator + 
+								Constants.ROOT_DIR + File.separator + Constants.AUDIO_DIR;
+						String filePath = dir + File.separator + mCurrentFilename;
+						String fileSize = AudioFileHandler.getFileSize(filePath);
+						String duration = AudioFileHandler.formatAudioDuration(mPlayer.getDuration());
+						
+						AudioFileHandler.saveAudioConfiguration(getActivity(), mCurrentFilename, "Î´ÃüÃû", fileSize, duration);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 					Button click = (Button) v;
 					click.setText("Rec");

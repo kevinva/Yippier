@@ -1,5 +1,6 @@
 package love.yippy.chan.utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class AudioFileHandler {
 
-	static public void saveAudioConfiguration(Context ctx, String audioFilename, String title){
+	static public void saveAudioConfiguration(Context ctx, String audioFilename, String title, String fileSize, String duration){
 		if(ctx == null || audioFilename == null || title == null){
 			return;
 		}
@@ -60,6 +61,8 @@ public class AudioFileHandler {
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("file", audioFilename);
 			map.put("title", title);
+			map.put("duration", duration);
+			map.put("fileSize", fileSize);
 			list.add(map);
 			String json = gson.toJson(list, type);
 			byte[] buffer = json.getBytes();
@@ -81,7 +84,9 @@ public class AudioFileHandler {
 				ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("file", audioFilename);
-				map.put("title", title);					
+				map.put("title", title);
+				map.put("duration", duration);
+				map.put("fileSize", fileSize);
 				list.add(map);					
 				String json = gson.toJson(list, type);
 				byte[] buffer = json.getBytes();
@@ -134,5 +139,47 @@ public class AudioFileHandler {
 		}
 		
 		return null;
+	}
+	
+	static public String formatAudioDuration(int duration){
+		if(duration < 0){
+			return "00:00:00";
+		}
+		
+		StringBuffer res = new StringBuffer();
+		int secs = duration / 1000;
+		int hours = secs / 3600;
+		int remainingSecs = secs % 3600;
+		String hourStr = String.format("%02d", hours);
+		res.append(hourStr + ":");
+		
+		int mins = remainingSecs / 60;
+		remainingSecs = remainingSecs % 60;
+		String minStr = String.format("%02d", mins);
+		res.append(minStr + ":");
+		
+		String secStr = String.format("%02d", remainingSecs);
+		res.append(secStr);
+		
+		return res.toString();
+	}
+	
+	static public String getFileSize(String filePath){
+		if(filePath == null){
+			return null;
+		}
+		
+		File f = new File(filePath);
+		long byteLen = f.length();
+		if(byteLen < 0.1 * 1024 * 1024){
+			double size = byteLen / 1024.0f;
+			String res = String.format("%.2fK", size);
+			return res;
+		}
+		else{
+			double size = byteLen / 1024.0f / 1024.0f;
+			String res = String.format("%.2M", size);
+			return res;
+		}
 	}
 }
