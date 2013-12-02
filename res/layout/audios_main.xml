@@ -6,29 +6,33 @@
     android:layout_height="match_parent"
     >
     
-    <TextView
-        android:id="@+id/no_audios_label"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="亲, 暂无音频！"
-        android:layout_gravity="center"
-        />
+    <LinearLayout
+        android:id="@+id/no_audios_layout"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:orientation="vertical" 
+    	>
+    	<TextView
+    	    android:gravity="center"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:text="亲, 暂无音频哦！"
+        	android:textSize="18sp"
+        	/>
+    </LinearLayout>
     
     <LinearLayout
         android:id="@+id/audios_list_layout"
     	android:layout_width="match_parent"
     	android:layout_height="match_parent"
     	android:orientation="vertical" 
-    	>   
-     
+    	> 
     	<ListView 
         	android:id="@+id/audios_list_view"
         	android:layout_width="match_parent"
         	android:layout_height="wrap_content"
-        	/>
-    
+        	/>    
 	</LinearLayout>
-    
     
 </FrameLayout>
 

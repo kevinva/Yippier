@@ -122,14 +122,15 @@ int color abs__bright_foreground_disabled_holo_dark 0x7f060004
 int color abs__bright_foreground_disabled_holo_light 0x7f060005
 int color abs__bright_foreground_holo_dark 0x7f060002
 int color abs__bright_foreground_holo_light 0x7f060003
-int color abs__primary_text_disable_only_holo_dark 0x7f06000b
-int color abs__primary_text_disable_only_holo_light 0x7f06000c
-int color abs__primary_text_holo_dark 0x7f06000d
-int color abs__primary_text_holo_light 0x7f06000e
+int color abs__primary_text_disable_only_holo_dark 0x7f06000c
+int color abs__primary_text_disable_only_holo_light 0x7f06000d
+int color abs__primary_text_holo_dark 0x7f06000e
+int color abs__primary_text_holo_light 0x7f06000f
 int color black 0x7f06000a
 int color blue 0x7f060008
 int color dark_blue 0x7f060006
 int color gray_blue 0x7f060007
+int color test 0x7f06000b
 int color white 0x7f060009
 int dimen abs__action_bar_default_height 0x7f070001
 int dimen abs__action_bar_icon_vertical_padding 0x7f070002
@@ -304,10 +305,11 @@ int id abs__submit_area 0x7f040034
 int id abs__textButton 0x7f040018
 int id abs__title 0x7f040020
 int id abs__up 0x7f04000b
-int id action_settings 0x7f040046
+int id action_settings 0x7f040048
+int id amplitude_bg 0x7f040041
 int id audio_duration_view 0x7f040039
 int id audio_title_view 0x7f040038
-int id audios_btn 0x7f040041
+int id audios_btn 0x7f040043
 int id audios_list_layout 0x7f04003d
 int id audios_list_view 0x7f04003e
 int id audios_main_layout 0x7f04003b
@@ -322,17 +324,18 @@ int id left 0x7f040010
 int id listMode 0x7f040002
 int id margin 0x7f040012
 int id menu_frame 0x7f040040
-int id no_audios_label 0x7f04003c
+int id no_audios_layout 0x7f04003c
 int id normal 0x7f040001
-int id record_btn 0x7f040042
+int id record_btn 0x7f040044
+int id recording_bg 0x7f040042
 int id right 0x7f040011
-int id row_icon 0x7f040043
-int id row_title 0x7f040044
+int id row_icon 0x7f040045
+int id row_title 0x7f040046
 int id selected_view 0x7f040014
 int id showCustom 0x7f040008
 int id showHome 0x7f040005
 int id showTitle 0x7f040007
-int id slidingmenumain 0x7f040045
+int id slidingmenumain 0x7f040047
 int id tabMode 0x7f040003
 int id useLogo 0x7f040004
 int id wrap_content 0x7f040000
@@ -549,7 +552,7 @@ int styleable SherlockSearchView_android_inputType 1
 int styleable SherlockSearchView_android_maxWidth 0
 int styleable SherlockSearchView_iconifiedByDefault 3
 int styleable SherlockSearchView_queryHint 4
-int[] styleable SherlockSpinner { 0x010100af, 0x01010175, 0x01010176, 0x0101017b, 0x01010262, 0x010102ac, 0x010102ad, 0x010103ef }
+int[] styleable SherlockSpinner { 0x010100af, 0x01010175, 0x01010176, 0x0101017b, 0x01010262, 0x010102ac, 0x010102ad, 0x0101043a }
 int styleable SherlockSpinner_android_dropDownHorizontalOffset 5
 int styleable SherlockSpinner_android_dropDownSelector 1
 int styleable SherlockSpinner_android_dropDownVerticalOffset 6

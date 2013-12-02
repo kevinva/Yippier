@@ -797,14 +797,15 @@ containing a value of this type.
         public static final int abs__bright_foreground_disabled_holo_light=0x7f060005;
         public static final int abs__bright_foreground_holo_dark=0x7f060002;
         public static final int abs__bright_foreground_holo_light=0x7f060003;
-        public static final int abs__primary_text_disable_only_holo_dark=0x7f06000b;
-        public static final int abs__primary_text_disable_only_holo_light=0x7f06000c;
-        public static final int abs__primary_text_holo_dark=0x7f06000d;
-        public static final int abs__primary_text_holo_light=0x7f06000e;
+        public static final int abs__primary_text_disable_only_holo_dark=0x7f06000c;
+        public static final int abs__primary_text_disable_only_holo_light=0x7f06000d;
+        public static final int abs__primary_text_holo_dark=0x7f06000e;
+        public static final int abs__primary_text_holo_light=0x7f06000f;
         public static final int black=0x7f06000a;
         public static final int blue=0x7f060008;
         public static final int dark_blue=0x7f060006;
         public static final int gray_blue=0x7f060007;
+        public static final int test=0x7f06000b;
         public static final int white=0x7f060009;
     }
     public static final class dimen {
@@ -1072,10 +1073,11 @@ containing a value of this type.
         public static final int abs__textButton=0x7f040018;
         public static final int abs__title=0x7f040020;
         public static final int abs__up=0x7f04000b;
-        public static final int action_settings=0x7f040046;
+        public static final int action_settings=0x7f040048;
+        public static final int amplitude_bg=0x7f040041;
         public static final int audio_duration_view=0x7f040039;
         public static final int audio_title_view=0x7f040038;
-        public static final int audios_btn=0x7f040041;
+        public static final int audios_btn=0x7f040043;
         public static final int audios_list_layout=0x7f04003d;
         public static final int audios_list_view=0x7f04003e;
         public static final int audios_main_layout=0x7f04003b;
@@ -1090,17 +1092,18 @@ containing a value of this type.
         public static final int listMode=0x7f040002;
         public static final int margin=0x7f040012;
         public static final int menu_frame=0x7f040040;
-        public static final int no_audios_label=0x7f04003c;
+        public static final int no_audios_layout=0x7f04003c;
         public static final int normal=0x7f040001;
-        public static final int record_btn=0x7f040042;
+        public static final int record_btn=0x7f040044;
+        public static final int recording_bg=0x7f040042;
         public static final int right=0x7f040011;
-        public static final int row_icon=0x7f040043;
-        public static final int row_title=0x7f040044;
+        public static final int row_icon=0x7f040045;
+        public static final int row_title=0x7f040046;
         public static final int selected_view=0x7f040014;
         public static final int showCustom=0x7f040008;
         public static final int showHome=0x7f040005;
         public static final int showTitle=0x7f040007;
-        public static final int slidingmenumain=0x7f040045;
+        public static final int slidingmenumain=0x7f040047;
         public static final int tabMode=0x7f040003;
         public static final int useLogo=0x7f040004;
         public static final int wrap_content=0x7f040000;
@@ -2355,7 +2358,7 @@ containing a value of this type.
          */
         public static final int[] SherlockSpinner = {
             0x010100af, 0x01010175, 0x01010176, 0x0101017b,
-            0x01010262, 0x010102ac, 0x010102ad, 0x010103ef
+            0x01010262, 0x010102ac, 0x010102ad, 0x0101043a
         };
         /**
           <p>

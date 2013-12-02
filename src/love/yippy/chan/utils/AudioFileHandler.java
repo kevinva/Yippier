@@ -178,7 +178,7 @@ public class AudioFileHandler {
 		}
 		else{
 			double size = byteLen / 1024.0f / 1024.0f;
-			String res = String.format("%.2M", size);
+			String res = String.format("%.2fM", size);
 			return res;
 		}
 	}

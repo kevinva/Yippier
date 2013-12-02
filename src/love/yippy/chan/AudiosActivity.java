@@ -44,18 +44,18 @@ public class AudiosActivity extends Activity {
 		this.getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		LinearLayout listLayout = (LinearLayout) this.findViewById(R.id.audios_list_layout);
-		TextView noDataLabel = (TextView) this.findViewById(R.id.no_audios_label);		
+		LinearLayout noAudiosLayout = (LinearLayout) this.findViewById(R.id.no_audios_layout);		
 		this.mAudiosListView = (ListView) this.findViewById(R.id.audios_list_view);
 		ArrayList<HashMap<String, String>> list = AudioFileHandler.loadAudioConfiguration(this);
 		if(list != null){
-			noDataLabel.setVisibility(View.INVISIBLE);
+			noAudiosLayout.setVisibility(View.INVISIBLE);
 			listLayout.setVisibility(View.VISIBLE);
 			
 			AudiosAdapter adapter = new AudiosAdapter(this, list);
 			mAudiosListView.setAdapter(adapter);
 		}
 		else{
-			noDataLabel.setVisibility(View.VISIBLE);
+			noAudiosLayout.setVisibility(View.VISIBLE);
 			listLayout.setVisibility(View.INVISIBLE);
 		}
 		
