@@ -1074,7 +1074,7 @@ containing a value of this type.
         public static final int abs__title=0x7f040020;
         public static final int abs__up=0x7f04000b;
         public static final int action_settings=0x7f040048;
-        public static final int amplitude_bg=0x7f040041;
+        public static final int amplitude_view=0x7f040041;
         public static final int audio_duration_view=0x7f040039;
         public static final int audio_title_view=0x7f040038;
         public static final int audios_btn=0x7f040043;
@@ -1095,7 +1095,7 @@ containing a value of this type.
         public static final int no_audios_layout=0x7f04003c;
         public static final int normal=0x7f040001;
         public static final int record_btn=0x7f040044;
-        public static final int recording_bg=0x7f040042;
+        public static final int recording_layout=0x7f040042;
         public static final int right=0x7f040011;
         public static final int row_icon=0x7f040045;
         public static final int row_title=0x7f040046;

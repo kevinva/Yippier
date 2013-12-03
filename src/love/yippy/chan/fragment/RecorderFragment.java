@@ -11,6 +11,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -23,11 +27,12 @@ import android.os.PowerManager.WakeLock;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.FrameLayout.LayoutParams;
 import android.widget.Toast;
 
 
@@ -37,38 +42,34 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 	private MediaRecorder mRecorder;	
 	private String mCurrentFilename;
 	private WakeLock mWakeLock;
-	private View mAmplView;
+	private SurfaceView mAmplitudeView;
+	private SurfaceHolder mAmplitudeViewHolder;
 	private boolean mRecording;
-	private int mAmplViewOriginalHeight;
 	
-	private Handler mRecordingHandler = new Handler(){
-		
-		public void handleMessage(Message msg){
-			switch(msg.what){
-			case Constants.MESSAGE_RECORDING_AMPLITUDE:				
-				double amplitude = msg.getData().getDouble(Constants.AMPLITUDE_KEY);								
-				ViewGroup.LayoutParams params = (LayoutParams) mAmplView.getLayoutParams();
-				params.height = (int) (mAmplViewOriginalHeight * (1 - amplitude));
-				mAmplView.setLayoutParams(params);
-				
-				if(Constants.DEBUG){
-					Log.v(Constants.DEBUG_TAG, "amplitude: " + amplitude);					
-					Log.v(Constants.DEBUG_TAG, "height: " + mAmplView.getHeight());
-				}
-				
-				break;
-			}
-		}
-		
-	};
+//	private Handler mRecordingHandler = new Handler(){
+//		
+//		public void handleMessage(Message msg){
+//			switch(msg.what){
+//			case Constants.MESSAGE_RECORDING_AMPLITUDE:				
+//				float amplitude = msg.getData().getFloat(Constants.AMPLITUDE_KEY);								
+//
+//				if(Constants.DEBUG){
+//					Log.v(Constants.DEBUG_TAG, "amplitude: " + amplitude);					
+//				}
+//				
+//				break;
+//			}
+//		}
+//		
+//	};
 	
 	private Runnable mAmplitudeTask = new Runnable(){
 
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
+			Canvas canvas = null;
 			while(mRecording){
-				Message msg = mRecordingHandler.obtainMessage();
 				try {
 					Thread.sleep(200);
 				}  catch (InterruptedException e) {
@@ -76,15 +77,26 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 					e.printStackTrace();
 				}
 				
-				if(mRecorder != null){
-					Bundle b = new Bundle();
-					double amplitude = mRecorder.getMaxAmplitude() / 32768.0;
-					b.putDouble(Constants.AMPLITUDE_KEY, amplitude);
-					msg.what = Constants.MESSAGE_RECORDING_AMPLITUDE;
-					msg.setData(b);
-					mRecordingHandler.sendMessage(msg);					
+				if(mRecorder != null){				
+					float amplitude = mRecorder.getMaxAmplitude() / 32768.0f;
+					
+					canvas = mAmplitudeViewHolder.lockCanvas();
+					drawAmplitudeView(canvas, amplitude);
+					mAmplitudeViewHolder.unlockCanvasAndPost(canvas);
+					
+//					Bundle b = new Bundle();
+//					b.putFloat(Constants.AMPLITUDE_KEY, amplitude);
+//					Message msg = mRecordingHandler.obtainMessage();
+//					msg.what = Constants.MESSAGE_RECORDING_AMPLITUDE;
+//					msg.setData(b);
+//					mRecordingHandler.sendMessage(msg);	
+					
 				}
 			}
+			
+			canvas = mAmplitudeViewHolder.lockCanvas();
+			clearAmplitudeDrawing(canvas);
+			mAmplitudeViewHolder.unlockCanvasAndPost(canvas);
 		}
 		
 	};
@@ -105,12 +117,13 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		int color = getResources().getColor(R.color.dark_blue);
-		// construct the RelativeLayou
 		
 		FrameLayout parentLayout = (FrameLayout)inflater.inflate(R.layout.recorder_main, null);
 		parentLayout.setBackgroundColor(color);
 		
-		mAmplView = parentLayout.findViewById(R.id.amplitude_bg);		
+		mAmplitudeView = (SurfaceView) parentLayout.findViewById(R.id.amplitude_view);
+		//mSfv.setBackgroundColor(Color.BLACK); //注意：设了SurfaceView的背景色则看不到效果
+		mAmplitudeViewHolder = mAmplitudeView.getHolder();
 		
 		Button itemsBtn = (Button) parentLayout.findViewById(R.id.audios_btn);
 		itemsBtn.setOnClickListener(this);
@@ -127,9 +140,6 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 		// TODO Auto-generated method stub		
 		int viewId = v.getId();
 		if(viewId == R.id.record_btn){
-			if(mAmplViewOriginalHeight <= 0 && mAmplView != null){
-				mAmplViewOriginalHeight = mAmplView.getHeight();
-			}
 			if(mRecorder == null){						
 				boolean isSDCardExist = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 				if(isSDCardExist){
@@ -209,16 +219,6 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 	}			
 
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onActivityCreated(savedInstanceState);
-	}
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-	}
 	
 	private MediaRecorder initRecorder(String filePath){
 		if(filePath == null){
@@ -231,5 +231,23 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
 		recorder.setOutputFile(filePath);
 		return recorder;
+	}
+	
+	
+	private void drawAmplitudeView(Canvas canvas, float ampl){
+		if(canvas == null){
+			return;
+		}
+		Paint paint = new Paint();
+		paint.setColor(Color.YELLOW);
+		canvas.drawColor(Color.BLACK);
+		canvas.drawRect(0.0f, canvas.getHeight() * (1 - ampl), canvas.getWidth(), canvas.getHeight(), paint);
+	}
+	
+	private void clearAmplitudeDrawing(Canvas canvas){
+		if(canvas == null){
+			return;
+		}
+		canvas.drawColor(Color.BLACK);
 	}
 }

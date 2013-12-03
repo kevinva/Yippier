@@ -306,7 +306,7 @@ int id abs__textButton 0x7f040018
 int id abs__title 0x7f040020
 int id abs__up 0x7f04000b
 int id action_settings 0x7f040048
-int id amplitude_bg 0x7f040041
+int id amplitude_view 0x7f040041
 int id audio_duration_view 0x7f040039
 int id audio_title_view 0x7f040038
 int id audios_btn 0x7f040043
@@ -327,7 +327,7 @@ int id menu_frame 0x7f040040
 int id no_audios_layout 0x7f04003c
 int id normal 0x7f040001
 int id record_btn 0x7f040044
-int id recording_bg 0x7f040042
+int id recording_layout 0x7f040042
 int id right 0x7f040011
 int id row_icon 0x7f040045
 int id row_title 0x7f040046
