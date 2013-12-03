@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="dark_blue">#123</color>
-    <color name="gray_blue">#456</color>
-    <color name="blue">#789</color>
-    <color name="white">#FFF</color>
-    <color name="black">#000</color>
+    <color name="swipe_list_view_front_background">#FFFFFF</color>
+    <color name="swipe_list_view_back_background">#789ABC</color>
+    <color name="black">#000000</color>
     <color name="test">#123456</color>
 </resources>

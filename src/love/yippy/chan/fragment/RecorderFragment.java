@@ -71,7 +71,7 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 			Canvas canvas = null;
 			while(mRecording){
 				try {
-					Thread.sleep(200);
+					Thread.sleep(100);
 				}  catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -116,7 +116,7 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		int color = getResources().getColor(R.color.dark_blue);
+		int color = getResources().getColor(R.color.black);
 		
 		FrameLayout parentLayout = (FrameLayout)inflater.inflate(R.layout.recorder_main, null);
 		parentLayout.setBackgroundColor(color);
@@ -212,9 +212,14 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 			}
 		}
 		else if(viewId == R.id.audios_btn){
-			Intent intent = new Intent();
-			intent.setClass(getActivity(), AudiosActivity.class);
-			getActivity().startActivity(intent);
+			if(mRecording){
+				Toast.makeText(getActivity(), "«Îœ»Õ£÷π¬º“Ù", Toast.LENGTH_LONG).show();
+			}
+			else{
+				Intent intent = new Intent();
+				intent.setClass(getActivity(), AudiosActivity.class);
+				getActivity().startActivity(intent);
+			}
 		}			
 	}			
 

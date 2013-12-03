@@ -1,6 +1,7 @@
 package love.yippy.chan.fragment;
 
 import love.yippy.chan.R;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,12 +15,9 @@ public class VoiceMessageFragment extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		int color = getResources().getColor(R.color.gray_blue);
-		// construct the RelativeLayou
-		
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
 		RelativeLayout parentLayout = (RelativeLayout)inflater.inflate(R.layout.function, null);
-		parentLayout.setBackgroundColor(color);
+		parentLayout.setBackgroundColor(Color.WHITE);
 		return parentLayout;
 	}
 	
