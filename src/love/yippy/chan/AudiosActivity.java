@@ -5,11 +5,15 @@ import java.util.HashMap;
 
 import love.yippy.chan.adapter.AudiosAdapter;
 import love.yippy.chan.utils.AudioFileHandler;
+import love.yippy.chan.utils.Constants;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -23,12 +27,12 @@ public class AudiosActivity extends Activity{
 	private SwipeListView mAudiosListView;
 	private LinearLayout mListLayout;
 	private LinearLayout mNoAudiosLayout;
+	private int mOpenedIndex = -1;
 	
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
-		this.setContentView(R.layout.audios_main);
-		
+		this.setContentView(R.layout.audios_main);		
 		this.initLayout();
 	}
 	
@@ -60,6 +64,7 @@ public class AudiosActivity extends Activity{
 			public void onOpened(int position, boolean toRight) {
 				// TODO Auto-generated method stub
 				super.onOpened(position, toRight);
+				
 			}
 
 			@Override
@@ -86,6 +91,17 @@ public class AudiosActivity extends Activity{
 			public void onStartOpen(int position, int action, boolean right) {
 				// TODO Auto-generated method stub
 				super.onStartOpen(position, action, right);
+				
+				if(Constants.DEBUG){
+					Log.v(Constants.DEBUG_TAG, "lastopenedIndex=" + mOpenedIndex + ", position=" + position);
+				}
+				
+				if(mOpenedIndex != position){
+					if(mOpenedIndex != -1){
+						mAudiosListView.closeAnimate(mOpenedIndex);
+					}
+				}
+				mOpenedIndex = position;
 			}
 
 			@Override

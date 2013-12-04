@@ -46,23 +46,6 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 	private SurfaceHolder mAmplitudeViewHolder;
 	private boolean mRecording;
 	
-//	private Handler mRecordingHandler = new Handler(){
-//		
-//		public void handleMessage(Message msg){
-//			switch(msg.what){
-//			case Constants.MESSAGE_RECORDING_AMPLITUDE:				
-//				float amplitude = msg.getData().getFloat(Constants.AMPLITUDE_KEY);								
-//
-//				if(Constants.DEBUG){
-//					Log.v(Constants.DEBUG_TAG, "amplitude: " + amplitude);					
-//				}
-//				
-//				break;
-//			}
-//		}
-//		
-//	};
-	
 	private Runnable mAmplitudeTask = new Runnable(){
 
 		@Override
@@ -82,15 +65,7 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 					
 					canvas = mAmplitudeViewHolder.lockCanvas();
 					drawAmplitudeView(canvas, amplitude);
-					mAmplitudeViewHolder.unlockCanvasAndPost(canvas);
-					
-//					Bundle b = new Bundle();
-//					b.putFloat(Constants.AMPLITUDE_KEY, amplitude);
-//					Message msg = mRecordingHandler.obtainMessage();
-//					msg.what = Constants.MESSAGE_RECORDING_AMPLITUDE;
-//					msg.setData(b);
-//					mRecordingHandler.sendMessage(msg);	
-					
+					mAmplitudeViewHolder.unlockCanvasAndPost(canvas);					
 				}
 			}
 			
