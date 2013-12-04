@@ -1,10 +1,17 @@
 package love.yippy.chan.adapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import love.yippy.chan.AudiosActivity;
 import love.yippy.chan.R;
+import love.yippy.chan.utils.AudioFileHandler;
+import love.yippy.chan.utils.KevinPlayer;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +27,7 @@ public class AudiosAdapter extends BaseAdapter {
 	private ArrayList<HashMap<String, String>> mAudios;
 	private Context mContext;
 	private LayoutInflater mInflater;
+	private int mPlayingIndex = -1;
 	
 	static class ViewHolder{
 		//front view
@@ -97,7 +105,31 @@ public class AudiosAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				Button clicked = (Button) v;
 				
+				KevinPlayer player = KevinPlayer.sharedInstance(mContext);
+				HashMap<String, String> audioInfo = mAudios.get(index);
+				String fileName = audioInfo.get("file");
+				String filePath = AudioFileHandler.generateAudioPath(fileName);
+				if(index != mPlayingIndex){
+					mPlayingIndex = index;
+					player.stop();
+					player.play(filePath);
+					
+					clicked.setText("‘›Õ£");
+				}
+				else{
+					if(player.isPlaying()){
+						player.pause();
+						
+						clicked.setText("≤•∑≈");
+					}
+					else{
+						player.resume();
+						
+						clicked.setText("‘›Õ£");
+					}
+				}
 			}
 		});
 
@@ -107,6 +139,44 @@ public class AudiosAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
+				new AlertDialog.Builder(mContext)
+				.setTitle("…æ≥˝“Ù∆µ")
+				.setMessage("»∑∂®…æ≥˝¥À¬º“Ù√¥£ø")
+				.setNegativeButton("À„¡À", new OnClickListener(){
+
+					@Override
+					public void onClick(DialogInterface dialog, int arg1) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+					
+				})
+				.setPositiveButton("…æ¡À", new OnClickListener(){
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						if(index == mPlayingIndex){
+							KevinPlayer player = KevinPlayer.sharedInstance(mContext);
+							player.stop();
+						}	
+						
+						HashMap<String, String> audioInfo = mAudios.get(index);
+						String fileName = audioInfo.get("file");
+						String filePath = AudioFileHandler.generateAudioPath(fileName);
+						File audioFile = new File(filePath);
+						if(audioFile.exists()){
+							audioFile.delete();
+							mAudios.remove(index);
+							AudioFileHandler.saveAudiosConfiguration(mContext, mAudios);
+							
+							AudiosAdapter.this.notifyDataSetChanged();
+							AudiosActivity activity = (AudiosActivity) mContext;
+							activity.relayoutWhenNoAudios();
+						}	
+					}
+					
+				}).show();		
 			}
 		});
 

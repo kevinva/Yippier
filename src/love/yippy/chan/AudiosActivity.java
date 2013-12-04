@@ -21,6 +21,8 @@ import com.fortysevendeg.swipelistview.SwipeListView;
 public class AudiosActivity extends Activity{
 
 	private SwipeListView mAudiosListView;
+	private LinearLayout mListLayout;
+	private LinearLayout mNoAudiosLayout;
 	
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -39,14 +41,19 @@ public class AudiosActivity extends Activity{
 		return super.onOptionsItemSelected(item);
 	}
 	
+	public void relayoutWhenNoAudios(){
+		mNoAudiosLayout.setVisibility(View.VISIBLE);
+		mListLayout.setVisibility(View.INVISIBLE);
+	}
+	
 	private void initLayout(){
 		FrameLayout parentLayout = (FrameLayout) this.findViewById(R.id.audios_main_layout);
 		
 		this.getActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		LinearLayout listLayout = (LinearLayout) this.findViewById(R.id.audios_list_layout);
-		LinearLayout noAudiosLayout = (LinearLayout) this.findViewById(R.id.no_audios_layout);		
-		mAudiosListView = (SwipeListView) listLayout.findViewById(R.id.audio_list_view);
+		mListLayout = (LinearLayout) this.findViewById(R.id.audios_list_layout);
+		mNoAudiosLayout = (LinearLayout) this.findViewById(R.id.no_audios_layout);		
+		mAudiosListView = (SwipeListView) this.findViewById(R.id.audio_list_view);
 		mAudiosListView.setSwipeListViewListener(new BaseSwipeListViewListener(){
 
 			@Override
@@ -143,18 +150,20 @@ public class AudiosActivity extends Activity{
 			
 		});		
 		
-		ArrayList<HashMap<String, String>> list = AudioFileHandler.loadAudioConfiguration(this);
-		if(list != null){
-			noAudiosLayout.setVisibility(View.INVISIBLE);
-			listLayout.setVisibility(View.VISIBLE);
+		ArrayList<HashMap<String, String>> list = AudioFileHandler.loadAudiosConfiguration(this);
+		if(list != null && list.size() > 0){
+			mNoAudiosLayout.setVisibility(View.INVISIBLE);
+			mListLayout.setVisibility(View.VISIBLE);
 			
 			AudiosAdapter adapter = new AudiosAdapter(this, list);
 			mAudiosListView.setAdapter(adapter);
 		}
 		else{
-			noAudiosLayout.setVisibility(View.VISIBLE);
-			listLayout.setVisibility(View.INVISIBLE);
+			mNoAudiosLayout.setVisibility(View.VISIBLE);
+			mListLayout.setVisibility(View.INVISIBLE);
 		}
 		
-	}	
+	}
+	
+	
 }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -64,20 +65,7 @@ public class AudioFileHandler {
 			map.put("duration", duration);
 			map.put("fileSize", fileSize);
 			list.add(map);
-			String json = gson.toJson(list, type);
-			byte[] buffer = json.getBytes();
-			
-			try {
-				FileOutputStream fos = ctx.openFileOutput(Constants.AUDIOS_CONFIG_FILE, Context.MODE_PRIVATE);
-				fos.write(buffer);
-				fos.close();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			AudioFileHandler.saveAudiosConfiguration(ctx, list);
 		}
 		else{
 			if(fileNotFound){
@@ -88,26 +76,39 @@ public class AudioFileHandler {
 				map.put("duration", duration);
 				map.put("fileSize", fileSize);
 				list.add(map);					
-				String json = gson.toJson(list, type);
-				byte[] buffer = json.getBytes();
-				
-				try {					
-					FileOutputStream fos = ctx.openFileOutput(Constants.AUDIOS_CONFIG_FILE, Context.MODE_PRIVATE);
-					fos.write(buffer);					
-					fos.close();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				AudioFileHandler.saveAudiosConfiguration(ctx, list);
 			}
 		}
 	}
 	
-	static public ArrayList<HashMap<String, String>> loadAudioConfiguration(Context ctx){
+	static public void saveAudiosConfiguration(Context ctx, ArrayList<HashMap<String, String>> list){
+		if(ctx == null || list == null){
+			return;
+		}
+		
+		GsonBuilder builder = new GsonBuilder();
+		builder.excludeFieldsWithoutExposeAnnotation();
+		Gson gson = builder.create();
+		TypeToken<ArrayList<HashMap<String, String>>> typeToken = new TypeToken<ArrayList<HashMap<String, String>>>(){};
+		Type type = typeToken.getType();
+		
+		String json = gson.toJson(list, type);
+		byte[] buffer = json.getBytes();		
+		try {					
+			FileOutputStream fos = ctx.openFileOutput(Constants.AUDIOS_CONFIG_FILE, Context.MODE_PRIVATE);
+			fos.write(buffer);					
+			fos.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	static public ArrayList<HashMap<String, String>> loadAudiosConfiguration(Context ctx){
 		if(ctx == null){
 			return null;
 		}
@@ -127,6 +128,10 @@ public class AudioFileHandler {
 			e.printStackTrace();
 		}
 		
+		if(Constants.DEBUG){
+			Log.v(Constants.DEBUG_TAG, "json: " + res);
+		}
+		
 		if(res != null){
 			GsonBuilder builder = new GsonBuilder();
 			builder.excludeFieldsWithoutExposeAnnotation();
@@ -134,7 +139,8 @@ public class AudioFileHandler {
 			TypeToken<ArrayList<HashMap<String, String>>> typeToken = new TypeToken<ArrayList<HashMap<String, String>>>(){};
 			Type type = typeToken.getType();
 			
-			ArrayList<HashMap<String, String>>list = gson.fromJson(res, type);
+			ArrayList<HashMap<String, String>> list = gson.fromJson(res, type);
+			
 			return list;
 		}
 		
@@ -181,5 +187,32 @@ public class AudioFileHandler {
 			String res = String.format("%.2fM", size);
 			return res;
 		}
+	}
+	
+	static public String generateAudioPath(String fileName){
+		if(fileName == null){
+			return null;
+		}
+		
+		String result = null;
+		try {
+			String dir = Environment.getExternalStorageDirectory().getCanonicalPath() + File.separator + 
+					Constants.ROOT_DIR + File.separator + Constants.AUDIO_DIR;
+			
+			if(Constants.DEBUG){
+				Log.v(Constants.DEBUG_TAG, "RecorderFragment: dir = " + dir);
+			}						
+			
+			File dirFile = new File(dir);
+			if(!dirFile.exists()){
+				dirFile.mkdirs();
+			}
+			result = dir + File.separator + fileName;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }

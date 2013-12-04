@@ -143,23 +143,11 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 			if(mRecorder == null){						
 				boolean isSDCardExist = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
 				if(isSDCardExist){
-					String dir;
-					try {
-						dir = Environment.getExternalStorageDirectory().getCanonicalPath() + File.separator + 
-								Constants.ROOT_DIR + File.separator + Constants.AUDIO_DIR;
-						
-						if(Constants.DEBUG){
-							Log.v(Constants.DEBUG_TAG, "RecorderFragment: dir = " + dir);
-						}						
-						
-						File dirFile = new File(dir);
-						if(!dirFile.exists()){
-							dirFile.mkdirs();
-						}					
-						mCurrentFilename = System.currentTimeMillis() + ".amr";
-						String filePath = dir + File.separator + mCurrentFilename;
-						mRecorder = initRecorder(filePath);
-						if(mRecorder != null){
+					mCurrentFilename = System.currentTimeMillis() + ".amr";
+					String filePath = AudioFileHandler.generateAudioPath(mCurrentFilename);
+					mRecorder = initRecorder(filePath);
+					if(mRecorder != null){
+						try {
 							mRecorder.prepare();
 							mRecorder.start();
 							
@@ -171,11 +159,13 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 							click.setText("Stop");
 							
 							mWakeLock.acquire(); //Â¼ÒôÊ±±£³ÖÆÁÄ»»½ÐÑ
+						} catch (IllegalStateException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
-						
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
 					}
 				}
 				else{
@@ -185,27 +175,16 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 			else{
 				mRecorder.stop();
 				mRecorder.release();
-				mRecorder = null;
-				
+				mRecorder = null;				
 				mRecording = false;
 				
 				mWakeLock.release();  //Â¼Òô½áÊøºó½â³ý±£³ÖÆÁÄ»»½ÐÑ
 				
-				String dir;
-				try {
-					dir = Environment.getExternalStorageDirectory().getCanonicalPath() + File.separator + 
-							Constants.ROOT_DIR + File.separator + Constants.AUDIO_DIR;
-					String filePath = dir + File.separator + mCurrentFilename;
-					String fileSize = AudioFileHandler.getFileSize(filePath);
-					
-					MediaPlayer player = MediaPlayer.create(getActivity(), Uri.parse(filePath));
-					String duration = AudioFileHandler.formatAudioDuration(player.getDuration());
-					
-					AudioFileHandler.saveAudioConfiguration(getActivity(), mCurrentFilename, "Î´ÃüÃû", fileSize, duration);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}					
+				String filePath = AudioFileHandler.generateAudioPath(mCurrentFilename);
+				String fileSize = AudioFileHandler.getFileSize(filePath);				
+				MediaPlayer player = MediaPlayer.create(getActivity(), Uri.parse(filePath));
+				String duration = AudioFileHandler.formatAudioDuration(player.getDuration());				
+				AudioFileHandler.saveAudioConfiguration(getActivity(), mCurrentFilename, "Î´ÃüÃû", fileSize, duration);				
 				
 				Button click = (Button) v;
 				click.setText("Rec");
