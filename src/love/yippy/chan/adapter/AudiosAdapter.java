@@ -8,13 +8,10 @@ import love.yippy.chan.AudiosActivity;
 import love.yippy.chan.R;
 import love.yippy.chan.utils.AudioFileHandler;
 import love.yippy.chan.utils.Constants;
-import love.yippy.chan.utils.KevinPlayer;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,37 +23,13 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-public class AudiosAdapter extends BaseAdapter implements KevinPlayer.onPlayingListener{
+public class AudiosAdapter extends BaseAdapter{
 
 	private ArrayList<HashMap<String, String>> mAudios;
 	private Context mContext;
 	private LayoutInflater mInflater;
-	private KevinPlayer mPlayer;
-	private View mPlayingView;
 	
-	private Handler mPlayingHandler = new Handler(){
-		
-		@Override
-		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-			super.handleMessage(msg);
-
-			if(mPlayingView != null){
-				switch(msg.what){
-					case Constants.MESSAGE_PLAYING:{
-						int progress = mPlayer.getCurrentPosition() * 100 / mPlayer.getDuration();	
-						ViewHolder holder = (ViewHolder) mPlayingView.getTag();						
-						holder.playingSeekBar.setProgress(progress);
-						holder.progressLabel.setText(AudioFileHandler.formatAudioDuration(mPlayer.getCurrentPosition()));
-						break;
-					}					
-				}
-			}
-		}
-		
-	};
-	
-	static class ViewHolder{
+	private static class ViewHolder{
 		//front view
 		TextView titleLabel;
 		TextView durationLabel;
@@ -65,7 +38,6 @@ public class AudiosAdapter extends BaseAdapter implements KevinPlayer.onPlayingL
 		//back view
 		EditText titleEidtView;
 		TextView progressLabel;
-		Button playBtn;
 		Button deleteBtn;
 		SeekBar playingSeekBar;
 	}
@@ -74,8 +46,6 @@ public class AudiosAdapter extends BaseAdapter implements KevinPlayer.onPlayingL
 		this.mContext = ctx;
 		this.mAudios = list;
 		this.mInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		this.mPlayer = new KevinPlayer(mContext);
-		mPlayer.setOnPlayingListener(this);
 	}
 	
 	@Override
@@ -106,22 +76,25 @@ public class AudiosAdapter extends BaseAdapter implements KevinPlayer.onPlayingL
 		final int index = position;
 		if(convertView == null){
 			convertView = mInflater.inflate(R.layout.audio_row, parent, false);
+			
 			holder = new ViewHolder();
+			
+			//front view
 			holder.titleLabel = (TextView) convertView.findViewById(R.id.audio_title_view);
 			holder.durationLabel = (TextView) convertView.findViewById(R.id.audio_duration_view);
 			holder.fileSizeLabel = (TextView) convertView.findViewById(R.id.auido_file_size_view);
+			
+			//back view
 			holder.titleEidtView = (EditText) convertView.findViewById(R.id.audio_title_edit_view);
-			holder.playBtn = (Button) convertView.findViewById(R.id.audio_play_btn);
+			holder.progressLabel = (TextView) convertView.findViewById(R.id.audio_progress_label);
 			holder.deleteBtn = (Button) convertView.findViewById(R.id.audio_delete_btn);
 			holder.playingSeekBar = (SeekBar) convertView.findViewById(R.id.audio_playing_seek_bar);
-			holder.progressLabel = (TextView) convertView.findViewById(R.id.audio_progress_label);
+
 			convertView.setTag(holder);
 		}
 		else{
 			holder = (ViewHolder) convertView.getTag();
-		}		
-
-		final View rowView = convertView;
+		}
 		
 		HashMap<String, String> audioInfo = mAudios.get(position);
 		String audioTitle = audioInfo.get("title");
@@ -133,51 +106,7 @@ public class AudiosAdapter extends BaseAdapter implements KevinPlayer.onPlayingL
 		holder.fileSizeLabel.setText(fileSizeStr);
 		holder.titleEidtView.setText(audioTitle);
 		holder.progressLabel.setText("00:00:00");
-		holder.playingSeekBar.setProgress(0);
-		holder.playBtn.setText("²¥·Å");		
-		holder.playBtn.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub	
-				Button clicked = (Button) v;
-				
-				HashMap<String, String> audioInfo = mAudios.get(index);
-				String fileName = audioInfo.get("file");
-				String filePath = AudioFileHandler.generateAudioPath(fileName);
-				
-				if(mPlayingView != rowView){
-					if(mPlayer.isPlaying()){
-						mPlayer.stop();
-						
-						if(mPlayingView != null){
-							ViewHolder holder = (ViewHolder) mPlayingView.getTag();
-							holder.playBtn.setText("²¥·Å");
-							holder.progressLabel.setText("00:00:00");
-							holder.playingSeekBar.setProgress(0);
-						}
-						
-					}		
-					mPlayingView = rowView;
-					
-					mPlayer.play(filePath);
-					
-					clicked.setText("ÔÝÍ£");					
-				}
-				else{
-					if(mPlayer.isPlaying()){
-						mPlayer.pause();
-						
-						clicked.setText("²¥·Å");
-					}
-					else{
-						mPlayer.play(null);
-						
-						clicked.setText("ÔÝÍ£");
-					}
-				}				
-			}
-		});
+		holder.playingSeekBar.setProgress(0);	
 		holder.deleteBtn.setText("É¾³ý");
 		holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
 			
@@ -200,11 +129,7 @@ public class AudiosAdapter extends BaseAdapter implements KevinPlayer.onPlayingL
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						if(mPlayingView == rowView){
-							mPlayer.stop();
-						}	
-						
+						// TODO Auto-generated method stub						
 						HashMap<String, String> audioInfo = mAudios.get(index);
 						String fileName = audioInfo.get("file");
 						String filePath = AudioFileHandler.generateAudioPath(fileName);
@@ -212,13 +137,15 @@ public class AudiosAdapter extends BaseAdapter implements KevinPlayer.onPlayingL
 						if(audioFile.exists()){
 							audioFile.delete();
 							mAudios.remove(index);
-							AudioFileHandler.saveAudiosConfiguration(mContext, mAudios);
 							
 							AudiosAdapter.this.notifyDataSetChanged();
 							
-							if(mAudios == null || mAudios.size() == 0){
-								AudiosActivity activity = (AudiosActivity) mContext;
+							AudiosActivity activity = (AudiosActivity) mContext;
+							if(mAudios == null || mAudios.size() == 0){								
 								activity.relayoutWhenNoAudios();
+							}
+							else{
+								activity.refreshListView();
 							}
 						}	
 					}
@@ -232,47 +159,74 @@ public class AudiosAdapter extends BaseAdapter implements KevinPlayer.onPlayingL
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
-				
+				if(Constants.DEBUG){
+					Log.v(Constants.DEBUG_TAG, "seekbar onStopTrackingTouch");
+				}				
 			}
 			
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
-				
+				if(Constants.DEBUG){
+					Log.v(Constants.DEBUG_TAG, "seekbar onStartTrackingTouch");
+				}
 			}
 			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				// TODO Auto-generated method stub
+				if(Constants.DEBUG){
+					Log.v(Constants.DEBUG_TAG, "seekbar onProgressChanged: progress=" + progress + ", fromUser=" + fromUser);
+				}
 				
+				if(fromUser){
+					AudiosActivity activity = (AudiosActivity) mContext;
+					activity.requestSeekToPlay(progress / 100.0f);
+				}
 				
 			}
 		});
 		
+		Log.v(Constants.DEBUG_TAG, "getView: convertView=" + convertView + ", position=" + position);
+		
 		return convertView;
 	}
-
-	@Override
-	public void onFinishPlaying(KevinPlayer player) {
-		// TODO Auto-generated method stub
-		if(mPlayingView != null){
-			ViewHolder holder = (ViewHolder) mPlayingView.getTag();
-			holder.playBtn.setText("²¥·Å");
-			holder.progressLabel.setText("00:00:00");
-			holder.playingSeekBar.setProgress(0);
-			
-			if(Constants.DEBUG){
-				Log.v(Constants.DEBUG_TAG, "onFinishPlaying");
-			}
-			
-			mPlayingView = null;
-		}		
+	
+	public void refreshRowViewWhenPlaying(View rowView, int progress, String formattedTimeStr){		
+		Log.v(Constants.DEBUG_TAG, "refreshRowViewWhenPlaying: rowView=" + rowView + ", timeStr=" + formattedTimeStr);
+		
+		if(rowView != null){
+			ViewHolder holder = (ViewHolder) rowView.getTag();		
+			holder.playingSeekBar.setProgress(progress);		
+			holder.progressLabel.setText(formattedTimeStr);
+		}
 	}
-
-	@Override
-	public void onUpdateProgress(KevinPlayer player) {
-		// TODO Auto-generated method stub
-		mPlayingHandler.sendEmptyMessage(Constants.MESSAGE_PLAYING);
+	
+	public void refreshRowViewWhenDragToPlay(View rowView, String formattedTimeStr){
+		if(rowView != null){
+			ViewHolder holder = (ViewHolder) rowView.getTag();		
+			holder.progressLabel.setText(formattedTimeStr);
+		}
+	}
+	
+	public void refreshAudioTitleAtRow(View rowView, int position){
+		Log.v(Constants.DEBUG_TAG, "refreshAudioTitleAtRow: rowView=" + rowView);
+		
+		if(rowView != null){
+			ViewHolder holder = (ViewHolder) rowView.getTag();		
+			String editText = holder.titleEidtView.getText().toString();
+			if(!editText.equals(holder.titleLabel.getText().toString())){
+				
+				if(Constants.DEBUG){
+					Log.v(Constants.DEBUG_TAG, "title change to " + editText);
+				}
+				
+				holder.titleLabel.setText(editText);		
+				HashMap<String, String> audioInfo = mAudios.get(position);
+				audioInfo.put("title", holder.titleEidtView.getText().toString());
+				this.notifyDataSetChanged();
+			}
+		}
 	}
 }

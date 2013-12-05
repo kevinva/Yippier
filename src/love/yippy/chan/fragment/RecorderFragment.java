@@ -1,31 +1,23 @@
 package love.yippy.chan.fragment;
 
-import java.io.File;
+
 import java.io.IOException;
 
 import love.yippy.chan.AudiosActivity;
 import love.yippy.chan.R;
 import love.yippy.chan.utils.AudioFileHandler;
-import love.yippy.chan.utils.Constants;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -41,7 +33,6 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 	
 	private MediaRecorder mRecorder;	
 	private String mCurrentFilename;
-	private WakeLock mWakeLock;
 	private SurfaceView mAmplitudeView;
 	private SurfaceHolder mAmplitudeViewHolder;
 	private boolean mRecording;
@@ -84,9 +75,6 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub
 		super.onAttach(activity);
-		
-		PowerManager pm = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
-		mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "cn");
 	}
 
 	@Override
@@ -132,8 +120,6 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 							
 							Button click = (Button) v;
 							click.setText("Stop");
-							
-							mWakeLock.acquire(); //Â¼ÒôÊ±±£³ÖÆÁÄ»»½ÐÑ
 						} catch (IllegalStateException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -152,8 +138,6 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 				mRecorder.release();
 				mRecorder = null;				
 				mRecording = false;
-				
-				mWakeLock.release();  //Â¼Òô½áÊøºó½â³ý±£³ÖÆÁÄ»»½ÐÑ
 				
 				String filePath = AudioFileHandler.generateAudioPath(mCurrentFilename);
 				String fileSize = AudioFileHandler.getFileSize(filePath);				

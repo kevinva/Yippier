@@ -1,12 +1,18 @@
 package love.yippy.chan;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import love.yippy.chan.adapter.FunctionPagerAdapter;
 import love.yippy.chan.fragment.UtilsFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -16,30 +22,60 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 public class MainActivity extends SlidingFragmentActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener{
 
 	private ViewPager vp;
+	private static boolean isExit = false;
+	private Timer mTimerExit = new Timer();
+	private TimerTask mExitTask = new TimerTask(){
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			isExit = false;
+		}		
+		
+	};
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //保持不锁屏
+		
 		setContentView(R.layout.activity_main);
 
 		this.initLayout();
 	}
+	
+	
+	public boolean onKeyDown(int keyCode, KeyEvent event){
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			if(isExit == false){
+				isExit = true;
+				Toast.makeText(this, "再按一次退出Yippier", Toast.LENGTH_LONG).show();
+				
+				mExitTask = null;
+				mExitTask = new TimerTask(){
 
-//	public boolean onCreateOptionMenu(Menu menu){
-//		//this.getSupportMenuInflater().inflate(R.menu.main, menu);
-//		return true;
-//	}
-//	
-//	public boolean onOptionItemSelected(MenuItem item){
-//		switch(item.getItemId()){
-//		case android.R.id.home:
-//			this.toggle();
-//			return true;
-//		}
-//		
-//		return super.onOptionsItemSelected(item);
-//	}
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						isExit = false;
+					}
+					
+				};
+				mTimerExit.schedule(mExitTask, 2000);
+			}
+			else{
+				this.exit();
+			}
+		}
+		
+		return true;
+	}
+	
+	private void exit(){
+		finish();
+		System.exit(0);
+	}
 	
 	private void initLayout(){
 		SlidingMenu menu = this.getSlidingMenu();

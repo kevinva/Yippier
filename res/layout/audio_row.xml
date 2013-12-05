@@ -42,12 +42,6 @@
 	        android:padding="5dp"
             android:orientation="horizontal"
             >
-            <Button 
-	            android:id="@+id/audio_play_btn"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="播放"
-            />   
         	<Button 
 	            android:id="@+id/audio_delete_btn"
 	            android:layout_width="wrap_content"
