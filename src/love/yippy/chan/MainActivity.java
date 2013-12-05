@@ -133,8 +133,7 @@ public class MainActivity extends SlidingFragmentActivity implements ActionBar.T
 		default:
 			this.getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 			break;
-		}
-		
+		}		
 		this.getSupportActionBar().getTabAt(arg0).select();
 	}
 

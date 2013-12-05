@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             swipe:swipeFrontView="@+id/row_front_layout"
             swipe:swipeBackView="@+id/row_back_layout"
-            swipe:swipeCloseAllItemsWhenMoveList="false"
+            swipe:swipeCloseAllItemsWhenMoveList="true"
             swipe:swipeOpenOnLongPress="false"
             swipe:swipeMode="right"
             />   

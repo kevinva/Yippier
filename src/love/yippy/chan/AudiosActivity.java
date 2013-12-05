@@ -44,7 +44,9 @@ public class AudiosActivity extends Activity{
 					AudiosAdapter adapter = (AudiosAdapter) mAudiosListView.getAdapter();
 					int progress = mRecordPlayer.getCurrentPosition() * 100 / mRecordPlayer.getDuration();
 					String formattedTimeStr = AudioFileHandler.formatAudioDuration(mRecordPlayer.getCurrentPosition());
-					adapter.refreshRowViewWhenPlaying(mAudiosListView.getChildAt(mOpenedIndex), progress, formattedTimeStr);
+					int startVisiblePos = mAudiosListView.getFirstVisiblePosition();
+					int logicalPos = mOpenedIndex - startVisiblePos;				
+					adapter.refreshRowViewWhenPlaying(mAudiosListView.getChildAt(logicalPos), progress, formattedTimeStr);
 					break;
 				}
 			}
@@ -105,6 +107,7 @@ public class AudiosActivity extends Activity{
 	
 	public void refreshListView(){
 		mAudiosListView.closeOpenedItems();
+
 	}
 	
 	public void requestSeekToPlay(float percent){
@@ -114,10 +117,13 @@ public class AudiosActivity extends Activity{
 			if(mOpenedIndex != -1){
 				AudiosAdapter adapter = (AudiosAdapter) mAudiosListView.getAdapter();
 				String formattedTimeStr = AudioFileHandler.formatAudioDuration((int)(mRecordPlayer.getDuration() * percent));
-				adapter.refreshRowViewWhenDragToPlay(mAudiosListView.getChildAt(mOpenedIndex), formattedTimeStr);
+				int startVisiblePos = mAudiosListView.getFirstVisiblePosition();
+				int logicalPos = mOpenedIndex - startVisiblePos;
+				adapter.refreshRowViewWhenDragToPlay(mAudiosListView.getChildAt(logicalPos), formattedTimeStr);
 			}
 		}		
 	}
+	
 	
 	private void initLayout(){		
 		this.getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -136,7 +142,7 @@ public class AudiosActivity extends Activity{
 		else{
 			mNoAudiosLayout.setVisibility(View.VISIBLE);
 			mListLayout.setVisibility(View.INVISIBLE);
-		}		
+		}
 		mAudiosListView.setSwipeListViewListener(new BaseSwipeListViewListener(){
 
 			@Override
@@ -144,11 +150,9 @@ public class AudiosActivity extends Activity{
 				// TODO Auto-generated method stub
 				super.onOpened(position, toRight);
 				
-				mOpenedIndex = position;
-				
 				if(Constants.DEBUG){
-					Log.v(Constants.DEBUG_TAG, "onOpened at position: " + position);
-				}
+					Log.v(Constants.DEBUG_TAG, "onOpened at position=" + position + ", mOpenedIndex=" + mOpenedIndex);
+				}				
 				
 				HashMap<String, String> audioInfo = mAudios.get(position);
 				String fileName = audioInfo.get("file");
@@ -172,10 +176,10 @@ public class AudiosActivity extends Activity{
 						mRecordPlayer.stop();
 					}
 				}
-				
+				int startVisiblePos = mAudiosListView.getFirstVisiblePosition();
+				int logicalPos = position - startVisiblePos;
 				AudiosAdapter adapter = (AudiosAdapter) mAudiosListView.getAdapter();
-				adapter.refreshAudioTitleAtRow(mAudiosListView.getChildAt(position), position);
-				
+				adapter.refreshAudioTitleAtRow(mAudiosListView.getChildAt(logicalPos), position);
 			}
 
 			@Override
@@ -200,14 +204,22 @@ public class AudiosActivity extends Activity{
 				super.onStartOpen(position, action, right);
 				
 				if(Constants.DEBUG){
-					Log.v(Constants.DEBUG_TAG, "onStartOpen: lastopenedIndex=" + mOpenedIndex + ", position=" + position);
+					Log.v(Constants.DEBUG_TAG, "onStartOpen: position=" + position);
 				}				
 
-				if(mOpenedIndex != position){					
-					if(mOpenedIndex != -1){
+				if(mOpenedIndex != -1){
+					int startVisiblePos = mAudiosListView.getFirstVisiblePosition();
+					int endVisiblePos = mAudiosListView.getLastVisiblePosition();
+					
+					if(Constants.DEBUG){
+						Log.v(Constants.DEBUG_TAG, "onOpened: mOpenedIndex=" + mOpenedIndex + ", (" + startVisiblePos + "-" + endVisiblePos + ")");
+					}
+					
+					if(mOpenedIndex != position && mOpenedIndex >= startVisiblePos && mOpenedIndex <= endVisiblePos){
 						mAudiosListView.closeAnimate(mOpenedIndex);
 					}
 				}
+				mOpenedIndex = position;
 			}
 
 			@Override

@@ -188,14 +188,10 @@ public class AudiosAdapter extends BaseAdapter{
 			}
 		});
 		
-		Log.v(Constants.DEBUG_TAG, "getView: convertView=" + convertView + ", position=" + position);
-		
 		return convertView;
 	}
 	
 	public void refreshRowViewWhenPlaying(View rowView, int progress, String formattedTimeStr){		
-		Log.v(Constants.DEBUG_TAG, "refreshRowViewWhenPlaying: rowView=" + rowView + ", timeStr=" + formattedTimeStr);
-		
 		if(rowView != null){
 			ViewHolder holder = (ViewHolder) rowView.getTag();		
 			holder.playingSeekBar.setProgress(progress);		
@@ -210,9 +206,7 @@ public class AudiosAdapter extends BaseAdapter{
 		}
 	}
 	
-	public void refreshAudioTitleAtRow(View rowView, int position){
-		Log.v(Constants.DEBUG_TAG, "refreshAudioTitleAtRow: rowView=" + rowView);
-		
+	public void refreshAudioTitleAtRow(View rowView, int position){	
 		if(rowView != null){
 			ViewHolder holder = (ViewHolder) rowView.getTag();		
 			String editText = holder.titleEidtView.getText().toString();

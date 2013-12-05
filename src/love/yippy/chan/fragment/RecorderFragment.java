@@ -85,7 +85,7 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 		parentLayout.setBackgroundColor(color);
 		
 		mAmplitudeView = (SurfaceView) parentLayout.findViewById(R.id.amplitude_view);
-		//mSfv.setBackgroundColor(Color.BLACK); //注意：设了SurfaceView的背景色则看不到效果
+		mAmplitudeView.setBackgroundColor(Color.TRANSPARENT); //注意：设SurfaceView的背景色为透明，否则看不到效果
 		mAmplitudeViewHolder = mAmplitudeView.getHolder();
 		
 		Button itemsBtn = (Button) parentLayout.findViewById(R.id.audios_btn);
