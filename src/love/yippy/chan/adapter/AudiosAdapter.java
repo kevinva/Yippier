@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -38,7 +39,7 @@ public class AudiosAdapter extends BaseAdapter{
 		//back view
 		EditText titleEidtView;
 		TextView progressLabel;
-		Button deleteBtn;
+		ImageButton deleteBtn;
 		SeekBar playingSeekBar;
 	}
 	
@@ -87,7 +88,7 @@ public class AudiosAdapter extends BaseAdapter{
 			//back view
 			holder.titleEidtView = (EditText) convertView.findViewById(R.id.audio_title_edit_view);
 			holder.progressLabel = (TextView) convertView.findViewById(R.id.audio_progress_label);
-			holder.deleteBtn = (Button) convertView.findViewById(R.id.audio_delete_btn);
+			holder.deleteBtn = (ImageButton) convertView.findViewById(R.id.audio_delete_btn);
 			holder.playingSeekBar = (SeekBar) convertView.findViewById(R.id.audio_playing_seek_bar);
 
 			convertView.setTag(holder);
@@ -107,7 +108,6 @@ public class AudiosAdapter extends BaseAdapter{
 		holder.titleEidtView.setText(audioTitle);
 		holder.progressLabel.setText("00:00:00");
 		holder.playingSeekBar.setProgress(0);	
-		holder.deleteBtn.setText("É¾³ý");
 		holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -141,6 +141,7 @@ public class AudiosAdapter extends BaseAdapter{
 							AudiosAdapter.this.notifyDataSetChanged();
 							
 							AudiosActivity activity = (AudiosActivity) mContext;
+							activity.requestStopPlaying();
 							if(mAudios == null || mAudios.size() == 0){								
 								activity.relayoutWhenNoAudios();
 							}

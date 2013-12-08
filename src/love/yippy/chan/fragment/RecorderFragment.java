@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -25,6 +27,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
@@ -36,6 +40,7 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 	private SurfaceView mAmplitudeView;
 	private SurfaceHolder mAmplitudeViewHolder;
 	private boolean mRecording;
+	private int mAmplitudeColor;
 	
 	private Runnable mAmplitudeTask = new Runnable(){
 
@@ -79,24 +84,30 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		int color = getResources().getColor(R.color.black);
+		mAmplitudeColor = getResources().getColor(R.color.alizarin_red);
 		
 		FrameLayout parentLayout = (FrameLayout)inflater.inflate(R.layout.recorder_main, null);
-		parentLayout.setBackgroundColor(color);
 		
 		mAmplitudeView = (SurfaceView) parentLayout.findViewById(R.id.amplitude_view);
 		mAmplitudeView.setBackgroundColor(Color.TRANSPARENT); //注意：设SurfaceView的背景色为透明，否则看不到效果
 		mAmplitudeViewHolder = mAmplitudeView.getHolder();
 		
-		Button itemsBtn = (Button) parentLayout.findViewById(R.id.audios_btn);
+		RelativeLayout recordingLayout = (RelativeLayout) parentLayout.findViewById(R.id.recording_layout);
+		recordingLayout.setBackgroundColor(Color.TRANSPARENT);
+		
+		ImageButton itemsBtn = (ImageButton) parentLayout.findViewById(R.id.audios_btn);
+		Drawable listBtnDrawable = getResources().getDrawable(R.drawable.button_list_drawable);
+		itemsBtn.setBackgroundDrawable(listBtnDrawable);
 		itemsBtn.setOnClickListener(this);
 		
-		Button recBtn = (Button) parentLayout.findViewById(R.id.record_btn);
-		recBtn.setText("Rec");
+		ImageButton recBtn = (ImageButton) parentLayout.findViewById(R.id.record_btn);
+		Drawable recDrawable = getResources().getDrawable(R.drawable.button_record_drawable);
+		recBtn.setBackgroundDrawable(recDrawable);
 		recBtn.setOnClickListener(this);
 		
 		return parentLayout;
 	}
+	
 
 	@Override
 	public void onClick(View v) {
@@ -118,8 +129,9 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 							Thread t = new Thread(mAmplitudeTask);
 							t.start();
 							
-							Button click = (Button) v;
-							click.setText("Stop");
+							ImageButton click = (ImageButton) v;
+							Drawable stopDrawable = getResources().getDrawable(R.drawable.button_stop_drawable);
+							click.setBackgroundDrawable(stopDrawable);
 						} catch (IllegalStateException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -145,8 +157,9 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 				String duration = AudioFileHandler.formatAudioDuration(player.getDuration());				
 				AudioFileHandler.saveAudioConfiguration(getActivity(), mCurrentFilename, "未命名", fileSize, duration);				
 				
-				Button click = (Button) v;
-				click.setText("Rec");
+				ImageButton click = (ImageButton) v;
+				Drawable recDrawable = getResources().getDrawable(R.drawable.button_record_drawable);
+				click.setBackgroundDrawable(recDrawable);
 			}
 		}
 		else if(viewId == R.id.audios_btn){
@@ -182,7 +195,7 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 			return;
 		}
 		Paint paint = new Paint();
-		paint.setColor(Color.YELLOW);
+		paint.setColor(mAmplitudeColor);
 		canvas.drawColor(Color.BLACK);
 		canvas.drawRect(0.0f, canvas.getHeight() * (1 - ampl), canvas.getWidth(), canvas.getHeight(), paint);
 	}

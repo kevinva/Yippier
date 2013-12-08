@@ -107,7 +107,12 @@ public class AudiosActivity extends Activity{
 	
 	public void refreshListView(){
 		mAudiosListView.closeOpenedItems();
-
+	}
+	
+	public void requestStopPlaying(){
+		if(mRecordPlayer.isPlaying()){
+			mRecordPlayer.stop();
+		}
 	}
 	
 	public void requestSeekToPlay(float percent){

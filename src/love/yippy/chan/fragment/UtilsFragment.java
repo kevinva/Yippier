@@ -23,8 +23,10 @@ public class UtilsFragment extends ListFragment{
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		UtilsAdapter adapter = new UtilsAdapter(getActivity());
-		adapter.add(new UtilItem("设置", android.R.drawable.ic_menu_preferences));
-		adapter.add(new UtilItem("关于", android.R.drawable.ic_menu_info_details));
+//		adapter.add(new UtilItem("设置", android.R.drawable.ic_menu_preferences));
+//		adapter.add(new UtilItem("关于", android.R.drawable.ic_menu_info_details));
+		adapter.add(new UtilItem("设置", R.drawable.icon_settings));
+		adapter.add(new UtilItem("关于", R.drawable.icon_about_me));
 		setListAdapter(adapter);
 	}
 

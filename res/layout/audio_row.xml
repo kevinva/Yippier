@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/swipe_list_view_back_background"
+        android:background="@color/kevin_blue1"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,6 +23,7 @@
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
 	            android:textSize="20sp"
+	            android:textColor="@color/clouds"
 	            android:singleLine="true"
 	            />
 	        <TextView 
@@ -33,6 +34,7 @@
 				android:layout_marginTop="10dp"
 				android:layout_marginRight="12dp"
 	            android:textSize="16sp"
+	            android:textColor="@color/clouds"
 	            android:text="00:00:00"
 	            />
         </RelativeLayout>
@@ -42,17 +44,18 @@
 	        android:padding="5dp"
             android:orientation="horizontal"
             >
-        	<Button 
+        	<ImageButton 
 	            android:id="@+id/audio_delete_btn"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="删除"
+	            android:background="@drawable/button_delete_bg"
             />
         	<SeekBar 
         	    android:id="@+id/audio_playing_seek_bar"
         	    android:layout_width="match_parent"
         	    android:layout_height="wrap_content"
-        	    android:layout_marginTop="10dp"
+ 				android:layout_marginTop="3dp"
+ 				android:layout_marginLeft="10dp"
         	    android:max="100"/>
         </LinearLayout>
     </LinearLayout>
@@ -61,7 +64,7 @@
         android:id="@+id/row_front_layout"
     	android:layout_width="match_parent"
     	android:layout_height="match_parent"
-    	android:background="@color/swipe_list_view_front_background"
+    	android:background="@color/clouds"
     	>"
     	<TextView 
         	android:id="@+id/audio_title_view"
@@ -73,6 +76,7 @@
         	android:layout_marginTop="15dp"
         	android:text="未命名"
         	android:textSize="20sp"
+        	android:textColor="@color/kevin_blue1"
         	/>    
 	    <TextView 
 	        android:id="@+id/audio_duration_view"
@@ -84,6 +88,7 @@
 	        android:layout_marginTop="15dp"
 	        android:text="00:00:00"
 	        android:textSize="16sp"
+	        android:textColor="@color/kevin_blue1"
 	        />        
 	    <TextView 
 	        android:id="@+id/auido_file_size_view"
@@ -95,6 +100,7 @@
 	        android:paddingTop="5dp"
 	        android:paddingBottom="20dp"
 	        android:textSize="13sp"
+	        android:textColor="@color/kevin_blue1"
 	        />    
 	</RelativeLayout>
     

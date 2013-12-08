@@ -894,14 +894,16 @@ containing a value of this type.
         public static final int abs__bright_foreground_disabled_holo_light=0x7f060005;
         public static final int abs__bright_foreground_holo_dark=0x7f060002;
         public static final int abs__bright_foreground_holo_light=0x7f060003;
-        public static final int abs__primary_text_disable_only_holo_dark=0x7f06000a;
-        public static final int abs__primary_text_disable_only_holo_light=0x7f06000b;
-        public static final int abs__primary_text_holo_dark=0x7f06000c;
-        public static final int abs__primary_text_holo_light=0x7f06000d;
-        public static final int black=0x7f060008;
-        public static final int swipe_list_view_back_background=0x7f060007;
-        public static final int swipe_list_view_front_background=0x7f060006;
-        public static final int test=0x7f060009;
+        public static final int abs__primary_text_disable_only_holo_dark=0x7f06000c;
+        public static final int abs__primary_text_disable_only_holo_light=0x7f06000d;
+        public static final int abs__primary_text_holo_dark=0x7f06000e;
+        public static final int abs__primary_text_holo_light=0x7f06000f;
+        public static final int alizarin_red=0x7f060007;
+        public static final int black=0x7f060009;
+        public static final int clouds=0x7f06000a;
+        public static final int kevin_blue1=0x7f06000b;
+        public static final int transparent=0x7f060008;
+        public static final int voice_fragment_bg=0x7f060006;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1125,8 +1127,22 @@ containing a value of this type.
         public static final int abs__textfield_searchview_right_holo_dark=0x7f02006d;
         public static final int abs__textfield_searchview_right_holo_light=0x7f02006e;
         public static final int abs__toast_frame=0x7f02006f;
-        public static final int ic_launcher=0x7f020070;
-        public static final int shadow=0x7f020071;
+        public static final int button_delete_bg=0x7f020070;
+        public static final int button_delete_highlighted=0x7f020071;
+        public static final int button_delete_normal=0x7f020072;
+        public static final int button_list_drawable=0x7f020073;
+        public static final int button_list_highlighted=0x7f020074;
+        public static final int button_list_normal=0x7f020075;
+        public static final int button_record_drawable=0x7f020076;
+        public static final int button_record_highlighted=0x7f020077;
+        public static final int button_record_normal=0x7f020078;
+        public static final int button_stop_drawable=0x7f020079;
+        public static final int button_stop_highlighted=0x7f02007a;
+        public static final int button_stop_normal=0x7f02007b;
+        public static final int ic_launcher=0x7f02007c;
+        public static final int icon_about_me=0x7f02007d;
+        public static final int icon_settings=0x7f02007e;
+        public static final int shadow=0x7f02007f;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f04002a;

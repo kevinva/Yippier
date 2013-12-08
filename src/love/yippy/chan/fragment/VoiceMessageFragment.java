@@ -15,9 +15,10 @@ public class VoiceMessageFragment extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		int color = this.getResources().getColor(R.color.voice_fragment_bg);
 		RelativeLayout parentLayout = (RelativeLayout)inflater.inflate(R.layout.function, null);
-		parentLayout.setBackgroundColor(Color.WHITE);
+		parentLayout.setBackgroundColor(color);
 		return parentLayout;
 	}
 	
