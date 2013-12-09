@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="quality_titles">
+        <item>高</item>
+        <item>中</item>
+        <item>低</item>
+    </string-array>
+    
+    <string-array name="quality_values">
+        <item>16000</item>
+        <item>8000</item>
+        <item>4000</item>
+    </string-array>
+</resources>

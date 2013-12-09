@@ -31,9 +31,8 @@
             </intent-filter>
         </activity>
         
-        <activity 
-            android:name=".AudiosActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".AudiosActivity" android:screenOrientation="portrait" />
+        <activity android:name=".MyPreferenceActivity" android:screenOrientation="portrait" />
     </application>
 
 </manifest>

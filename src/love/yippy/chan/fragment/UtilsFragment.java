@@ -1,11 +1,11 @@
 package love.yippy.chan.fragment;
 
+import love.yippy.chan.MyPreferenceActivity;
 import love.yippy.chan.R;
-import love.yippy.chan.utils.Constants;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +37,8 @@ public class UtilsFragment extends ListFragment{
 		
 		switch(position){
 		case 0:
+			Intent intent = new Intent(this.getActivity(), MyPreferenceActivity.class);
+			this.getActivity().startActivity(intent);
 			break;
 		case 1:
 			break;

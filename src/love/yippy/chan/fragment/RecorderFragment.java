@@ -183,8 +183,8 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 		
 		MediaRecorder recorder = new MediaRecorder();
 		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-		recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+		recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_WB);
+		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB);
 		recorder.setOutputFile(filePath);
 		return recorder;
 	}
