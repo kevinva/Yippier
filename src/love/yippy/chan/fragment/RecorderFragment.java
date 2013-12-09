@@ -6,26 +6,28 @@ import java.io.IOException;
 import love.yippy.chan.AudiosActivity;
 import love.yippy.chan.R;
 import love.yippy.chan.utils.AudioFileHandler;
+import love.yippy.chan.utils.Constants;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -181,10 +183,20 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 			return null;
 		}
 		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		String qualityStr = prefs.getString("recording_quality", "8000");
+		
+		
+		if(Constants.DEBUG){
+			Log.v(Constants.DEBUG_TAG, "recording_quality: " + qualityStr);
+		}		
+		
 		MediaRecorder recorder = new MediaRecorder();
 		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-		recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_WB);
-		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB);
+		recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+		recorder.setAudioChannels(2);
+		recorder.setAudioSamplingRate(Integer.parseInt(qualityStr));
 		recorder.setOutputFile(filePath);
 		return recorder;
 	}

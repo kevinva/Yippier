@@ -1188,8 +1188,8 @@ containing a value of this type.
         public static final int abs__textButton=0x7f05001d;
         public static final int abs__title=0x7f050025;
         public static final int abs__up=0x7f05000b;
-        public static final int action_settings=0x7f050053;
-        public static final int amplitude_view=0x7f05004c;
+        public static final int action_settings=0x7f050055;
+        public static final int amplitude_view=0x7f05004e;
         public static final int audio_delete_btn=0x7f050040;
         public static final int audio_duration_view=0x7f050044;
         public static final int audio_list_view=0x7f050049;
@@ -1197,7 +1197,7 @@ containing a value of this type.
         public static final int audio_progress_label=0x7f05003f;
         public static final int audio_title_edit_view=0x7f05003e;
         public static final int audio_title_view=0x7f050043;
-        public static final int audios_btn=0x7f05004e;
+        public static final int audios_btn=0x7f050050;
         public static final int audios_list_layout=0x7f050048;
         public static final int audios_main_layout=0x7f050046;
         public static final int auido_file_size_view=0x7f050045;
@@ -1217,19 +1217,21 @@ containing a value of this type.
         public static final int no_audios_layout=0x7f050047;
         public static final int none=0x7f050015;
         public static final int normal=0x7f050001;
-        public static final int record_btn=0x7f05004f;
-        public static final int recording_layout=0x7f05004d;
+        public static final int pref_summary_label=0x7f05004d;
+        public static final int pref_title_label=0x7f05004c;
+        public static final int record_btn=0x7f050051;
+        public static final int recording_layout=0x7f05004f;
         public static final int reveal=0x7f050017;
         public static final int right=0x7f050011;
         public static final int row_back_layout=0x7f05003d;
         public static final int row_front_layout=0x7f050042;
-        public static final int row_icon=0x7f050050;
-        public static final int row_title=0x7f050051;
+        public static final int row_icon=0x7f050052;
+        public static final int row_title=0x7f050053;
         public static final int selected_view=0x7f050014;
         public static final int showCustom=0x7f050008;
         public static final int showHome=0x7f050005;
         public static final int showTitle=0x7f050007;
-        public static final int slidingmenumain=0x7f050052;
+        public static final int slidingmenumain=0x7f050054;
         public static final int tabMode=0x7f050003;
         public static final int useLogo=0x7f050004;
         public static final int wrap_content=0x7f050000;
@@ -1265,11 +1267,12 @@ containing a value of this type.
         public static final int function=0x7f030018;
         public static final int list=0x7f030019;
         public static final int menu_frame=0x7f03001a;
-        public static final int recorder_main=0x7f03001b;
-        public static final int row=0x7f03001c;
-        public static final int sherlock_spinner_dropdown_item=0x7f03001d;
-        public static final int sherlock_spinner_item=0x7f03001e;
-        public static final int slidingmenumain=0x7f03001f;
+        public static final int my_preference=0x7f03001b;
+        public static final int recorder_main=0x7f03001c;
+        public static final int row=0x7f03001d;
+        public static final int sherlock_spinner_dropdown_item=0x7f03001e;
+        public static final int sherlock_spinner_item=0x7f03001f;
+        public static final int slidingmenumain=0x7f030020;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;

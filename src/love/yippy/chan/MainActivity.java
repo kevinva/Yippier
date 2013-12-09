@@ -77,7 +77,7 @@ public class MainActivity extends SlidingFragmentActivity implements ActionBar.T
 		System.exit(0);
 	}
 	
-	private void initLayout(){
+	private void  initLayout(){
 		SlidingMenu menu = this.getSlidingMenu();
 		menu.setMode(SlidingMenu.LEFT);
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
@@ -95,7 +95,12 @@ public class MainActivity extends SlidingFragmentActivity implements ActionBar.T
 		this.getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		for(int i = 1; i <= 2; i++){
 			ActionBar.Tab tab = this.getSupportActionBar().newTab();
-			tab.setText("Tab " + i);
+			if(i == 1){
+				tab.setText("Â¼Òô ");
+			}
+			else{
+				tab.setText("(´ý¿ª·¢) ");
+			}			
 			tab.setTabListener(this);
 			this.getSupportActionBar().addTab(tab);
 		}

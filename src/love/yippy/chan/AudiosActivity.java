@@ -130,7 +130,7 @@ public class AudiosActivity extends Activity{
 	}
 	
 	
-	private void initLayout(){		
+	private void initLayout(){	
 		this.getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		mListLayout = (LinearLayout) this.findViewById(R.id.audios_list_layout);

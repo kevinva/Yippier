@@ -1,15 +1,17 @@
 package love.yippy.chan;
 
 import java.io.File;
-import java.io.IOException;
 
+import love.yippy.chan.preference.MyLabelPreference;
+import love.yippy.chan.preference.MyListPreference;
 import love.yippy.chan.utils.Constants;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.os.Environment;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.MenuItem;
 
 public class MyPreferenceActivity extends PreferenceActivity {
 
@@ -17,20 +19,72 @@ public class MyPreferenceActivity extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 		this.addPreferencesFromResource(R.xml.my_preferences);
 		
-		Preference audioFileLocationPref = this.findPreference("audio_file_location");
-		String dir;
-		try {
-			dir = Environment.getExternalStorageDirectory().getCanonicalPath() + File.separator + 
-					Constants.ROOT_DIR + File.separator + Constants.AUDIO_DIR;
-			audioFileLocationPref.setSummary("录音文件位置：SD卡" + File.separator + dir);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-		sharedPref.getInt("recording_quality", 8000);
-		
+		this.initLayout();
 	}
 	
+	public boolean onOptionsItemSelected(MenuItem item){
+		if(item.getItemId() == android.R.id.home){
+			finish();
+			return true;
+		}
+		
+		return super.onOptionsItemSelected(item);
+	}
+	
+	private void initLayout(){
+		this.getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		MyLabelPreference audioFileLocationPref = (MyLabelPreference) this.findPreference("audio_file_location");
+		audioFileLocationPref.title = "录音文件存储位置";
+		audioFileLocationPref.summary = "SD卡" + File.separator + Constants.ROOT_DIR + File.separator + Constants.AUDIO_DIR + File.separator;
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		sharedPrefs.registerOnSharedPreferenceChangeListener(new OnSharedPreferenceChangeListener(){
+
+			@Override
+			public void onSharedPreferenceChanged(
+					SharedPreferences sharedPreferences, String key) {
+				// TODO Auto-generated method stub
+				
+				if(key.equals("recording_quality")){
+					MyListPreference recordingQualityPref = (MyListPreference) findPreference("recording_quality");
+					String currentQuality = recordingQualityPref.getValue();
+					String currentTitle = fetchCurrentQualityTitle(currentQuality);
+					if(currentTitle != null){
+						recordingQualityPref.setSummary("当前音质：" + currentTitle);
+					}
+				}
+			}
+			
+		});
+		
+		String currentQuality = sharedPrefs.getString("recording_quality", "8000");
+		MyListPreference recordingQualityPref = (MyListPreference) this.findPreference("recording_quality");
+		recordingQualityPref.mTitle = "录音音质";
+		String currentTitle = this.fetchCurrentQualityTitle(currentQuality);
+		if(currentTitle != null){
+			recordingQualityPref.mSummary = "当前音质：" + currentTitle;
+		}
+	}
+	
+	private String fetchCurrentQualityTitle(String quality){
+		if(quality == null){
+			return null;
+		}
+		String[] quality_values = this.getResources().getStringArray(R.array.quality_values);
+		String[] quality_titles = this.getResources().getStringArray(R.array.quality_titles);
+		String currentTitle = null;
+		for(int i = 0; i < quality_values.length; i++){
+			if(quality.equals(quality_values[i])){
+				currentTitle = quality_titles[i];
+				break;
+			}
+		}
+		
+		if(Constants.DEBUG){
+			Log.v(Constants.DEBUG_TAG, "fecthCurrentQualityTitle: " + currentTitle);
+		}
+		
+		return currentTitle;
+	}
 }

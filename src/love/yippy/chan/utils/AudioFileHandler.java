@@ -64,7 +64,7 @@ public class AudioFileHandler {
 			map.put("title", title);
 			map.put("duration", duration);
 			map.put("fileSize", fileSize);
-			list.add(map);
+			list.add(0, map);
 			AudioFileHandler.saveAudiosConfiguration(ctx, list);
 		}
 		else{

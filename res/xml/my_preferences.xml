@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <Preference 
+    <love.yippy.chan.preference.MyLabelPreference 
         android:key="audio_file_location"
-        android:title="录音存储位置"
-        android:summary="SD卡"
+		android:layout="@layout/my_preference"
         />
-    <ListPreference 
+    <love.yippy.chan.preference.MyListPreference 
         android:key="recording_quality"
-        android:title="录音音质"
-        android:summary="当前音质"
-        android:dialogTitle="选择音质"
+		android:layout="@layout/my_preference"
         android:entries="@array/quality_titles"
         android:entryValues="@array/quality_values"
-        android:defaultValue="8000"/>    
+        android:defaultValue="8000"
+        android:dialogTitle="选择音质"
+        />    
+
 </PreferenceScreen>
 
