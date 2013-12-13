@@ -34,6 +34,25 @@ public class MyListPreference extends ListPreference {
 		
 		mSummaryLabel = (TextView) view.findViewById(R.id.pref_summary_label);
 		mSummaryLabel.setText(mSummary);
+		
+		int titleTextColorRes = 0;
+		int summaryTextColorRes = 0;
+		if(false){
+			titleTextColorRes = R.color.kevin_spring_green2;
+			summaryTextColorRes = R.color.kevin_spring_green2;
+		}else if(false){
+			titleTextColorRes = R.color.kevin_summer_blue2;
+			summaryTextColorRes = R.color.kevin_summer_blue2;
+		}else if(false){
+			titleTextColorRes = R.color.kevin_autumu_yellow2;
+			summaryTextColorRes = R.color.kevin_autumu_yellow2;
+		}
+		else{
+			titleTextColorRes = R.color.kevin_blue1;
+			summaryTextColorRes = R.color.kevin_blue1;
+		}
+		mTitleLabel.setTextColor(this.getContext().getResources().getColor(titleTextColorRes));
+		mSummaryLabel.setTextColor(this.getContext().getResources().getColor(summaryTextColorRes));
 	}
 
 	@Override

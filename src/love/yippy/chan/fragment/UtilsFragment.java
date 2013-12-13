@@ -25,8 +25,23 @@ public class UtilsFragment extends ListFragment{
 		UtilsAdapter adapter = new UtilsAdapter(getActivity());
 //		adapter.add(new UtilItem("设置", android.R.drawable.ic_menu_preferences));
 //		adapter.add(new UtilItem("关于", android.R.drawable.ic_menu_info_details));
-		adapter.add(new UtilItem("设置", R.drawable.icon_settings));
-		adapter.add(new UtilItem("关于", R.drawable.icon_about_me));
+		if(false){
+			adapter.add(new UtilItem("设置", R.drawable.icon_spring_settings));
+			adapter.add(new UtilItem("关于", R.drawable.icon_spring_about_me));
+		}
+		else if(false){
+			adapter.add(new UtilItem("设置", R.drawable.icon_summer_settings));
+			adapter.add(new UtilItem("关于", R.drawable.icon_summer_about_me));
+		}
+		else if(false){
+			adapter.add(new UtilItem("设置", R.drawable.icon_autumu_settings));
+			adapter.add(new UtilItem("关于", R.drawable.icon_autumu_about_me));
+		}
+		else{
+			adapter.add(new UtilItem("设置", R.drawable.icon_winter_settings));
+			adapter.add(new UtilItem("关于", R.drawable.icon_winter_about_me));
+		}
+
 		setListAdapter(adapter);
 	}
 

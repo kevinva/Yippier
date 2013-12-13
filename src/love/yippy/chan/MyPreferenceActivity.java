@@ -7,6 +7,7 @@ import love.yippy.chan.preference.MyListPreference;
 import love.yippy.chan.utils.Constants;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
@@ -33,6 +34,22 @@ public class MyPreferenceActivity extends PreferenceActivity {
 	
 	private void initLayout(){
 		this.getActionBar().setDisplayHomeAsUpEnabled(true);
+		this.getActionBar().setDisplayUseLogoEnabled(false);
+		this.getActionBar().setTitle("设置");
+		Drawable actionBarDrawable = null;
+		if(false){
+			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_spring_drawable);
+		}
+		else if(false){
+			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_summer_drawable);	
+		}
+		else if(false){
+			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_autumu_drawable);
+		}
+		else{
+			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_winter_drawable);
+		}
+		this.getActionBar().setBackgroundDrawable(actionBarDrawable);
 		
 		MyLabelPreference audioFileLocationPref = (MyLabelPreference) this.findPreference("audio_file_location");
 		audioFileLocationPref.title = "录音文件存储位置";

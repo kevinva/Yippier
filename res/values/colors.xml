@@ -6,4 +6,15 @@
     <color name="black">#000000</color>
 	<color name="clouds">#ecf0f1</color>
 	<color name="kevin_blue1">#0e4364</color>
+	<color name="kevin_spring_green1">#d3f6d7</color>
+	<color name="kevin_spring_green2">#096e13</color>
+	<color name="kevin_summer_blue1">#b9e0f8</color>
+	<color name="kevin_summer_blue2">#2980b9</color>
+	<color name="kevin_autumu_yellow1">#f7e6a1</color>
+	<color name="kevin_autumu_yellow2">#d35400</color>
+	
+	<drawable name="action_bar_spring_drawable">#096e13</drawable>
+	<drawable name="action_bar_summer_drawable">#2980b9</drawable>
+	<drawable name="action_bar_autumu_drawable">#d35400</drawable>
+	<drawable name="action_bar_winter_drawable">#e74c3c</drawable>
 </resources>

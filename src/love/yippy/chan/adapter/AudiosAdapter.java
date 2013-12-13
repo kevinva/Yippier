@@ -17,9 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -32,11 +33,13 @@ public class AudiosAdapter extends BaseAdapter{
 	
 	private static class ViewHolder{
 		//front view
+		RelativeLayout frontBgLayout;
 		TextView titleLabel;
 		TextView durationLabel;
 		TextView fileSizeLabel;
 		
 		//back view
+		LinearLayout backBgLayout;
 		EditText titleEidtView;
 		TextView progressLabel;
 		ImageButton deleteBtn;
@@ -81,11 +84,13 @@ public class AudiosAdapter extends BaseAdapter{
 			holder = new ViewHolder();
 			
 			//front view
+			holder.frontBgLayout = (RelativeLayout) convertView.findViewById(R.id.row_front_layout);
 			holder.titleLabel = (TextView) convertView.findViewById(R.id.audio_title_view);
 			holder.durationLabel = (TextView) convertView.findViewById(R.id.audio_duration_view);
 			holder.fileSizeLabel = (TextView) convertView.findViewById(R.id.auido_file_size_view);
 			
 			//back view
+			holder.backBgLayout = (LinearLayout) convertView.findViewById(R.id.row_back_layout);
 			holder.titleEidtView = (EditText) convertView.findViewById(R.id.audio_title_edit_view);
 			holder.progressLabel = (TextView) convertView.findViewById(R.id.audio_progress_label);
 			holder.deleteBtn = (ImageButton) convertView.findViewById(R.id.audio_delete_btn);
@@ -96,6 +101,63 @@ public class AudiosAdapter extends BaseAdapter{
 		else{
 			holder = (ViewHolder) convertView.getTag();
 		}
+		
+		int frontLayoutBgRes = 0;
+		int titleLabelColorRes = 0;
+		int durationLabelColorRes = 0;
+		int fileSizeLabelColoRes = 0;
+		int backLayoutBgRes = 0;
+		int titleEditViewColorRes = 0;
+		int progressLabelColorRes = 0;
+		int deleteBtnBgRes = 0;
+		if(false){
+			frontLayoutBgRes = R.color.kevin_spring_green1;
+			titleLabelColorRes = R.color.kevin_spring_green2;
+			durationLabelColorRes = R.color.kevin_spring_green2;
+			fileSizeLabelColoRes = R.color.kevin_spring_green2;
+			backLayoutBgRes = R.color.kevin_spring_green2;
+			titleEditViewColorRes = R.color.kevin_spring_green1;
+			progressLabelColorRes = R.color.kevin_spring_green1;
+			deleteBtnBgRes = R.drawable.button_delete_srping_bg;
+		}
+		else if(false){
+			frontLayoutBgRes = R.color.kevin_summer_blue1;
+			titleLabelColorRes = R.color.kevin_summer_blue2;
+			durationLabelColorRes = R.color.kevin_summer_blue2;
+			fileSizeLabelColoRes = R.color.kevin_summer_blue2;
+			backLayoutBgRes = R.color.kevin_summer_blue2;
+			titleEditViewColorRes = R.color.kevin_summer_blue1;
+			progressLabelColorRes = R.color.kevin_summer_blue1;
+			deleteBtnBgRes = R.drawable.button_delete_summer_bg;
+		}
+		else if(false){
+			frontLayoutBgRes = R.color.kevin_autumu_yellow1;
+			titleLabelColorRes = R.color.kevin_autumu_yellow2;
+			durationLabelColorRes = R.color.kevin_autumu_yellow2;
+			fileSizeLabelColoRes = R.color.kevin_autumu_yellow2;
+			backLayoutBgRes = R.color.kevin_autumu_yellow2;
+			titleEditViewColorRes = R.color.kevin_autumu_yellow1;
+			progressLabelColorRes = R.color.kevin_autumu_yellow1;
+			deleteBtnBgRes = R.drawable.button_delete_autumu_bg;
+		}
+		else{
+			frontLayoutBgRes = R.color.clouds;;
+			titleLabelColorRes = R.color.kevin_blue1;
+			durationLabelColorRes = R.color.kevin_blue1;
+			fileSizeLabelColoRes = R.color.kevin_blue1;
+			backLayoutBgRes = R.color.kevin_blue1;
+			titleEditViewColorRes = R.color.clouds;
+			progressLabelColorRes = R.color.clouds;
+			deleteBtnBgRes = R.drawable.button_delete_winter_bg;
+		}
+		holder.frontBgLayout.setBackgroundResource(frontLayoutBgRes);
+		holder.titleLabel.setTextColor(mContext.getResources().getColor(titleLabelColorRes));
+		holder.durationLabel.setTextColor(mContext.getResources().getColor(durationLabelColorRes));
+		holder.fileSizeLabel.setTextColor(mContext.getResources().getColor(fileSizeLabelColoRes));
+		holder.backBgLayout.setBackgroundResource(backLayoutBgRes);
+		holder.titleEidtView.setTextColor(mContext.getResources().getColor(titleEditViewColorRes));
+		holder.progressLabel.setTextColor(mContext.getResources().getColor(progressLabelColorRes));
+		holder.deleteBtn.setBackgroundResource(deleteBtnBgRes);
 		
 		HashMap<String, String> audioInfo = mAudios.get(position);
 		String audioTitle = audioInfo.get("title");

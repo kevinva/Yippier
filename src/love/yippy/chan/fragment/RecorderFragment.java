@@ -86,7 +86,31 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		mAmplitudeColor = getResources().getColor(R.color.alizarin_red);
+		int ampliColorRes = 0;
+		int itemsBtnDrawableRes = 0;
+		int recBtnDrawableRes = 0;
+		if(false){
+			ampliColorRes = R.color.kevin_spring_green2;
+			itemsBtnDrawableRes = R.drawable.button_list_spring_drawable;
+			recBtnDrawableRes = R.drawable.button_record_drawable;
+		}
+		else if(false){
+			ampliColorRes = R.color.kevin_summer_blue2;
+			itemsBtnDrawableRes = R.drawable.button_list_summer_drawable;
+			recBtnDrawableRes = R.drawable.button_record_drawable;
+		}
+		else if(false){
+			ampliColorRes = R.color.kevin_autumu_yellow2;
+			itemsBtnDrawableRes = R.drawable.button_list_autumu_drawable;
+			recBtnDrawableRes = R.drawable.button_record_drawable;
+		}
+		else{
+			ampliColorRes = R.color.alizarin_red;
+			itemsBtnDrawableRes = R.drawable.button_list_winter_drawable;
+			recBtnDrawableRes = R.drawable.button_record_drawable;
+		}
+		
+		mAmplitudeColor = getResources().getColor(ampliColorRes);
 		
 		FrameLayout parentLayout = (FrameLayout)inflater.inflate(R.layout.recorder_main, null);
 		
@@ -98,12 +122,12 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 		recordingLayout.setBackgroundColor(Color.TRANSPARENT);
 		
 		ImageButton itemsBtn = (ImageButton) parentLayout.findViewById(R.id.audios_btn);
-		Drawable listBtnDrawable = getResources().getDrawable(R.drawable.button_list_drawable);
+		Drawable listBtnDrawable = getResources().getDrawable(itemsBtnDrawableRes);
 		itemsBtn.setBackgroundDrawable(listBtnDrawable);
 		itemsBtn.setOnClickListener(this);
 		
 		ImageButton recBtn = (ImageButton) parentLayout.findViewById(R.id.record_btn);
-		Drawable recDrawable = getResources().getDrawable(R.drawable.button_record_drawable);
+		Drawable recDrawable = getResources().getDrawable(recBtnDrawableRes);
 		recBtn.setBackgroundDrawable(recDrawable);
 		recBtn.setOnClickListener(this);
 		
@@ -132,7 +156,19 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 							t.start();
 							
 							ImageButton click = (ImageButton) v;
-							Drawable stopDrawable = getResources().getDrawable(R.drawable.button_stop_drawable);
+							Drawable stopDrawable = null;
+							if(false){
+								stopDrawable = getResources().getDrawable(R.drawable.button_stop_spring_drawable);
+							}
+							else if(false){
+								stopDrawable = getResources().getDrawable(R.drawable.button_stop_summer_drawable);
+							}
+							else if(false){
+								stopDrawable = getResources().getDrawable(R.drawable.button_stop_autumu_drawable);
+							}
+							else{
+								stopDrawable = getResources().getDrawable(R.drawable.button_stop_winter_drawable);
+							}
 							click.setBackgroundDrawable(stopDrawable);
 						} catch (IllegalStateException e) {
 							// TODO Auto-generated catch block

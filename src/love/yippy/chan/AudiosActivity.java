@@ -9,6 +9,7 @@ import love.yippy.chan.utils.Constants;
 import love.yippy.chan.utils.KevinPlayer;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -132,6 +133,22 @@ public class AudiosActivity extends Activity{
 	
 	private void initLayout(){	
 		this.getActionBar().setDisplayHomeAsUpEnabled(true);
+		this.getActionBar().setDisplayUseLogoEnabled(false);
+		this.getActionBar().setTitle("Â¼ÒôÁÐ±í");
+		Drawable actionBarDrawable = null;
+		if(false){
+			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_spring_drawable);
+		}
+		else if(false){
+			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_summer_drawable);	
+		}
+		else if(false){
+			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_autumu_drawable);
+		}
+		else{
+			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_winter_drawable);
+		}
+		this.getActionBar().setBackgroundDrawable(actionBarDrawable);
 		
 		mListLayout = (LinearLayout) this.findViewById(R.id.audios_list_layout);
 		mNoAudiosLayout = (LinearLayout) this.findViewById(R.id.no_audios_layout);
