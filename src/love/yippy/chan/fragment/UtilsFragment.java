@@ -2,6 +2,7 @@ package love.yippy.chan.fragment;
 
 import love.yippy.chan.MyPreferenceActivity;
 import love.yippy.chan.R;
+import love.yippy.chan.utils.Constants;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,15 +26,15 @@ public class UtilsFragment extends ListFragment{
 		UtilsAdapter adapter = new UtilsAdapter(getActivity());
 //		adapter.add(new UtilItem("设置", android.R.drawable.ic_menu_preferences));
 //		adapter.add(new UtilItem("关于", android.R.drawable.ic_menu_info_details));
-		if(false){
+		if(Constants.isSrping){
 			adapter.add(new UtilItem("设置", R.drawable.icon_spring_settings));
 			adapter.add(new UtilItem("关于", R.drawable.icon_spring_about_me));
 		}
-		else if(false){
+		else if(Constants.isSummer){
 			adapter.add(new UtilItem("设置", R.drawable.icon_summer_settings));
 			adapter.add(new UtilItem("关于", R.drawable.icon_summer_about_me));
 		}
-		else if(false){
+		else if(Constants.isAutumu){
 			adapter.add(new UtilItem("设置", R.drawable.icon_autumu_settings));
 			adapter.add(new UtilItem("关于", R.drawable.icon_autumu_about_me));
 		}

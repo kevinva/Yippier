@@ -904,14 +904,14 @@ containing a value of this type.
         public static final int abs__primary_text_holo_light=0x7f070015;
         public static final int alizarin_red=0x7f070007;
         public static final int black=0x7f070009;
-        public static final int clouds=0x7f07000a;
-        public static final int kevin_autumu_yellow1=0x7f070010;
-        public static final int kevin_autumu_yellow2=0x7f070011;
-        public static final int kevin_blue1=0x7f07000b;
-        public static final int kevin_spring_green1=0x7f07000c;
-        public static final int kevin_spring_green2=0x7f07000d;
-        public static final int kevin_summer_blue1=0x7f07000e;
-        public static final int kevin_summer_blue2=0x7f07000f;
+        public static final int clouds=0x7f070010;
+        public static final int kevin_autumu_yellow1=0x7f07000e;
+        public static final int kevin_autumu_yellow2=0x7f07000f;
+        public static final int kevin_blue1=0x7f070011;
+        public static final int kevin_spring_green1=0x7f07000a;
+        public static final int kevin_spring_green2=0x7f07000b;
+        public static final int kevin_summer_blue1=0x7f07000c;
+        public static final int kevin_summer_blue2=0x7f07000d;
         public static final int transparent=0x7f070008;
         public static final int voice_fragment_bg=0x7f070006;
     }

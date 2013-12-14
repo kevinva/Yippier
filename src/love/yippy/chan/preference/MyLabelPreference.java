@@ -1,6 +1,7 @@
 package love.yippy.chan.preference;
 
 import love.yippy.chan.R;
+import love.yippy.chan.utils.Constants;
 import android.content.Context;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -37,13 +38,13 @@ public class MyLabelPreference extends Preference {
 		
 		int titleTextColorRes = 0;
 		int summaryTextColorRes = 0;
-		if(false){
+		if(Constants.isSrping){
 			titleTextColorRes = R.color.kevin_spring_green2;
 			summaryTextColorRes = R.color.kevin_spring_green2;
-		}else if(false){
+		}else if(Constants.isSummer){
 			titleTextColorRes = R.color.kevin_summer_blue2;
 			summaryTextColorRes = R.color.kevin_summer_blue2;
-		}else if(false){
+		}else if(Constants.isAutumu){
 			titleTextColorRes = R.color.kevin_autumu_yellow2;
 			summaryTextColorRes = R.color.kevin_autumu_yellow2;
 		}

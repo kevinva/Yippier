@@ -35,7 +35,7 @@ import android.widget.Toast;
 
 
 @SuppressLint("ValidFragment")
-public class RecorderFragment extends Fragment implements View.OnClickListener{
+public class RecorderFragment extends Fragment implements View.OnClickListener, SurfaceHolder.Callback{
 	
 	private MediaRecorder mRecorder;	
 	private String mCurrentFilename;
@@ -43,6 +43,7 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 	private SurfaceHolder mAmplitudeViewHolder;
 	private boolean mRecording;
 	private int mAmplitudeColor;
+	private int mBgColor;
 	
 	private Runnable mAmplitudeTask = new Runnable(){
 
@@ -86,37 +87,44 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		int ampliColorRes = 0;
+		int amplitudeColorRes = 0;
 		int itemsBtnDrawableRes = 0;
 		int recBtnDrawableRes = 0;
-		if(false){
-			ampliColorRes = R.color.kevin_spring_green2;
+		int bgColorRes = 0;
+		if(Constants.isSrping){
+			amplitudeColorRes = R.color.kevin_spring_green2;
 			itemsBtnDrawableRes = R.drawable.button_list_spring_drawable;
 			recBtnDrawableRes = R.drawable.button_record_drawable;
+			bgColorRes = R.color.kevin_spring_green1;
 		}
-		else if(false){
-			ampliColorRes = R.color.kevin_summer_blue2;
+		else if(Constants.isSummer){
+			amplitudeColorRes = R.color.kevin_summer_blue2;
 			itemsBtnDrawableRes = R.drawable.button_list_summer_drawable;
 			recBtnDrawableRes = R.drawable.button_record_drawable;
+			bgColorRes = R.color.kevin_summer_blue1;
 		}
-		else if(false){
-			ampliColorRes = R.color.kevin_autumu_yellow2;
+		else if(Constants.isAutumu){
+			amplitudeColorRes = R.color.kevin_autumu_yellow2;
 			itemsBtnDrawableRes = R.drawable.button_list_autumu_drawable;
 			recBtnDrawableRes = R.drawable.button_record_drawable;
+			bgColorRes = R.color.kevin_autumu_yellow1;
 		}
 		else{
-			ampliColorRes = R.color.alizarin_red;
+			amplitudeColorRes = R.color.kevin_blue1;
 			itemsBtnDrawableRes = R.drawable.button_list_winter_drawable;
 			recBtnDrawableRes = R.drawable.button_record_drawable;
+			bgColorRes = R.color.clouds;
 		}
 		
-		mAmplitudeColor = getResources().getColor(ampliColorRes);
+		mAmplitudeColor = getResources().getColor(amplitudeColorRes);
+		mBgColor = getResources().getColor(bgColorRes);
 		
 		FrameLayout parentLayout = (FrameLayout)inflater.inflate(R.layout.recorder_main, null);
 		
 		mAmplitudeView = (SurfaceView) parentLayout.findViewById(R.id.amplitude_view);
 		mAmplitudeView.setBackgroundColor(Color.TRANSPARENT); //注意：设SurfaceView的背景色为透明，否则看不到效果
 		mAmplitudeViewHolder = mAmplitudeView.getHolder();
+		mAmplitudeViewHolder.addCallback(this);
 		
 		RelativeLayout recordingLayout = (RelativeLayout) parentLayout.findViewById(R.id.recording_layout);
 		recordingLayout.setBackgroundColor(Color.TRANSPARENT);
@@ -157,13 +165,13 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 							
 							ImageButton click = (ImageButton) v;
 							Drawable stopDrawable = null;
-							if(false){
+							if(Constants.isSrping){
 								stopDrawable = getResources().getDrawable(R.drawable.button_stop_spring_drawable);
 							}
-							else if(false){
+							else if(Constants.isSummer){
 								stopDrawable = getResources().getDrawable(R.drawable.button_stop_summer_drawable);
 							}
-							else if(false){
+							else if(Constants.isAutumu){
 								stopDrawable = getResources().getDrawable(R.drawable.button_stop_autumu_drawable);
 							}
 							else{
@@ -244,7 +252,7 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 		}
 		Paint paint = new Paint();
 		paint.setColor(mAmplitudeColor);
-		canvas.drawColor(Color.BLACK);
+		canvas.drawColor(mBgColor);
 		canvas.drawRect(0.0f, canvas.getHeight() * (1 - ampl), canvas.getWidth(), canvas.getHeight(), paint);
 	}
 	
@@ -252,6 +260,28 @@ public class RecorderFragment extends Fragment implements View.OnClickListener{
 		if(canvas == null){
 			return;
 		}
-		canvas.drawColor(Color.BLACK);
+		canvas.drawColor(mBgColor);
+	}
+
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format, int width,
+			int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		
+		Canvas canvas = holder.lockCanvas();
+		canvas.drawColor(mBgColor);
+		holder.unlockCanvasAndPost(canvas);
+	}
+
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		
 	}
 }

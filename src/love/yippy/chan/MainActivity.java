@@ -1,17 +1,23 @@
 package love.yippy.chan;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import love.yippy.chan.adapter.FunctionPagerAdapter;
 import love.yippy.chan.fragment.UtilsFragment;
+import love.yippy.chan.utils.Constants;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -39,6 +45,45 @@ public class MainActivity extends SlidingFragmentActivity implements ActionBar.T
 		super.onCreate(savedInstanceState);
 		
 		this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //保持不锁屏
+		
+		Date currentdate  = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(currentdate);
+		int month = calendar.get(Calendar.MONTH);
+		
+		if(Constants.DEBUG){
+			Log.v(Constants.DEBUG_TAG, "month=" + month);
+		}
+		
+		if(month >= 2 && month < 5){
+			//3月到5月
+			Constants.isSrping = true;
+			Constants.isSummer = false;
+			Constants.isAutumu = false;
+			Constants.isWinter = false;
+		}
+		else if(month >= 5 && month < 8){
+			//6月到8月
+			Constants.isSrping = false;
+			Constants.isSummer = true;
+			Constants.isAutumu = false;
+			Constants.isWinter = false;
+		}
+		else if(month >= 8 && month < 10 ){
+			//9月到11月
+			Constants.isSrping = false;
+			Constants.isSummer = false;
+			Constants.isAutumu = true;
+			Constants.isWinter = false;
+		}
+		else{
+			//12月、1月、2月
+			Constants.isSrping = false;
+			Constants.isSummer = false;
+			Constants.isAutumu = false;
+			Constants.isWinter = true;
+			
+		}
 		
 		setContentView(R.layout.activity_main);
 
@@ -92,6 +137,20 @@ public class MainActivity extends SlidingFragmentActivity implements ActionBar.T
 		ft.replace(R.id.menu_frame, listFragment);
 		ft.commit();
 		
+		int tabBarBgRes = 0;
+		if(Constants.isSrping){
+			tabBarBgRes = R.drawable.action_bar_spring_drawable;
+		}
+		else if(Constants.isSummer){
+			tabBarBgRes = R.drawable.action_bar_summer_drawable;
+		}
+		else if(Constants.isAutumu){
+			tabBarBgRes = R.drawable.action_bar_autumu_drawable;
+		}
+		else{
+			tabBarBgRes = R.drawable.action_bar_winter_drawable;
+		}
+		this.getSupportActionBar().setStackedBackgroundDrawable(this.getResources().getDrawable(tabBarBgRes));
 		this.getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		for(int i = 1; i <= 2; i++){
 			ActionBar.Tab tab = this.getSupportActionBar().newTab();

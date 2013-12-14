@@ -110,7 +110,7 @@ public class AudiosAdapter extends BaseAdapter{
 		int titleEditViewColorRes = 0;
 		int progressLabelColorRes = 0;
 		int deleteBtnBgRes = 0;
-		if(false){
+		if(Constants.isSrping){
 			frontLayoutBgRes = R.color.kevin_spring_green1;
 			titleLabelColorRes = R.color.kevin_spring_green2;
 			durationLabelColorRes = R.color.kevin_spring_green2;
@@ -120,7 +120,7 @@ public class AudiosAdapter extends BaseAdapter{
 			progressLabelColorRes = R.color.kevin_spring_green1;
 			deleteBtnBgRes = R.drawable.button_delete_srping_bg;
 		}
-		else if(false){
+		else if(Constants.isSummer){
 			frontLayoutBgRes = R.color.kevin_summer_blue1;
 			titleLabelColorRes = R.color.kevin_summer_blue2;
 			durationLabelColorRes = R.color.kevin_summer_blue2;
@@ -130,7 +130,7 @@ public class AudiosAdapter extends BaseAdapter{
 			progressLabelColorRes = R.color.kevin_summer_blue1;
 			deleteBtnBgRes = R.drawable.button_delete_summer_bg;
 		}
-		else if(false){
+		else if(Constants.isAutumu){
 			frontLayoutBgRes = R.color.kevin_autumu_yellow1;
 			titleLabelColorRes = R.color.kevin_autumu_yellow2;
 			durationLabelColorRes = R.color.kevin_autumu_yellow2;

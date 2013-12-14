@@ -11,6 +11,11 @@ public class Constants {
 	public static final String AUDIOS_CONFIG_FILE = "audios_conf.txt";
 	
 	public static final int MESSAGE_PLAYING = 100;
+	
+	public static boolean isSrping = false;
+	public static boolean isSummer = false;
+	public static boolean isAutumu = false;
+	public static boolean isWinter = true;
 
 	
 }

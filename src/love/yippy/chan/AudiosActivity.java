@@ -136,13 +136,13 @@ public class AudiosActivity extends Activity{
 		this.getActionBar().setDisplayUseLogoEnabled(false);
 		this.getActionBar().setTitle("Â¼ÒôÁÐ±í");
 		Drawable actionBarDrawable = null;
-		if(false){
+		if(Constants.isSrping){
 			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_spring_drawable);
 		}
-		else if(false){
+		else if(Constants.isSummer){
 			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_summer_drawable);	
 		}
-		else if(false){
+		else if(Constants.isAutumu){
 			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_autumu_drawable);
 		}
 		else{
