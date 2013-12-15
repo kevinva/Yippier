@@ -34,7 +34,6 @@ public class MyPreferenceActivity extends PreferenceActivity {
 	
 	private void initLayout(){
 		this.getActionBar().setDisplayHomeAsUpEnabled(true);
-		this.getActionBar().setDisplayUseLogoEnabled(false);
 		this.getActionBar().setTitle("…Ë÷√");
 		Drawable actionBarDrawable = null;
 		if(Constants.isSrping){

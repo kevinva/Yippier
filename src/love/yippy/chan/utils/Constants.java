@@ -16,6 +16,4 @@ public class Constants {
 	public static boolean isSummer = false;
 	public static boolean isAutumu = false;
 	public static boolean isWinter = true;
-
-	
 }

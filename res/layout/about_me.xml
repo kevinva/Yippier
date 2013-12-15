@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center" >
+    
+    <ImageButton
+        android:id="@+id/logo_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/button_logo_drawable"
+        />
+    <TextView 
+        android:id="@+id/version_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/logo_btn"
+        android:textSize="16sp"
+        />"
+    <TextView
+        android:id="@+id/copyright_label2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:textSize="13sp"
+        android:text="All Rights Reserved"
+        />  
+    <TextView
+        android:id="@+id/copyright_label1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/copyright_label2"
+        android:layout_marginBottom="5dp"
+        android:textSize="13sp"
+        android:text="Copyright © 2013 Kevin."
+        />
+
+
+</RelativeLayout>

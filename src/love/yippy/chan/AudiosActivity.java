@@ -133,8 +133,7 @@ public class AudiosActivity extends Activity{
 	
 	private void initLayout(){	
 		this.getActionBar().setDisplayHomeAsUpEnabled(true);
-		this.getActionBar().setDisplayUseLogoEnabled(false);
-		this.getActionBar().setTitle("录音列表");
+		this.getActionBar().setTitle("录音管理");
 		Drawable actionBarDrawable = null;
 		if(Constants.isSrping){
 			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_spring_drawable);

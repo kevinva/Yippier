@@ -1,5 +1,6 @@
 package love.yippy.chan.fragment;
 
+import love.yippy.chan.AboutMeActivity;
 import love.yippy.chan.MyPreferenceActivity;
 import love.yippy.chan.R;
 import love.yippy.chan.utils.Constants;
@@ -53,12 +54,13 @@ public class UtilsFragment extends ListFragment{
 		
 		switch(position){
 		case 0:
-			Intent intent = new Intent(this.getActivity(), MyPreferenceActivity.class);
-			this.getActivity().startActivity(intent);
+			Intent intentPreference = new Intent(this.getActivity(), MyPreferenceActivity.class);
+			this.getActivity().startActivity(intentPreference);
 			break;
 		case 1:
+			Intent aboutMeIntent = new Intent(this.getActivity(), AboutMeActivity.class);
+			this.getActivity().startActivity(aboutMeIntent);
 			break;
-
 		}
 	}
 
