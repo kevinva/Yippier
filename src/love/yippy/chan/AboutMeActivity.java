@@ -2,18 +2,20 @@ package love.yippy.chan;
 
 import love.yippy.chan.utils.Constants;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class AboutMeActivity extends Activity {
+	
+	private int clickCount = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,13 @@ public class AboutMeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				clickCount++;
+				
+				if(clickCount == 3){
+					clickCount = 0;
+					
+					startQRView();
+				}
 				
 			}
 		});
@@ -97,5 +106,9 @@ public class AboutMeActivity extends Activity {
 		}
 		
 		return pInfo.versionName;
+	}
+	
+	private void startQRView(){
+//		Intent openCameraScanningIntent = new Intent(this, CaptureActivity.class);
 	}
 }
