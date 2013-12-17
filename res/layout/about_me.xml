@@ -39,7 +39,7 @@
         android:layout_above="@id/copyright_label2"
         android:layout_marginBottom="5dp"
         android:textSize="13sp"
-        android:text="Copyright © 2013 Kevin."
+        android:text="Copyright © 2013 Kevin Ho."
         />
 
 

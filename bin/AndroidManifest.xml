@@ -44,6 +44,7 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden"
             />
+        <activity android:name=".SpecialActivity" android:screenOrientation="portrait" />
     </application>
 
 </manifest>

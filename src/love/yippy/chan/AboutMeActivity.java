@@ -8,10 +8,14 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.zxing.activity.CaptureActivity;
 
 public class AboutMeActivity extends Activity {
 	
@@ -26,6 +30,29 @@ public class AboutMeActivity extends Activity {
 		
 		initLayout();
 	}
+	
+	
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if(requestCode == Constants.CAPTURE_INTENT_REQUEST){
+			if(resultCode == RESULT_OK){
+				Bundle bundle = data.getExtras();
+				String scanResult = bundle.getString("result");
+				
+				Log.v(Constants.DEBUG_TAG, "scan result: " + scanResult);
+				
+				if(scanResult.equals(Constants.SPECIAL_CODE)){
+					Intent i = new Intent(this, SpecialActivity.class);
+					this.startActivity(i);
+				}
+			}
+		}
+	}
+
 
 	private void initLayout(){
 		Drawable actionBarDrawable = null;
@@ -61,12 +88,14 @@ public class AboutMeActivity extends Activity {
 				// TODO Auto-generated method stub
 				clickCount++;
 				
-				if(clickCount == 3){
+				if(clickCount == 2){
+					Toast.makeText(AboutMeActivity.this, "再按一次试试", Toast.LENGTH_LONG).show();
+				}
+				else if(clickCount == 3){
 					clickCount = 0;
 					
 					startQRView();
-				}
-				
+				}				
 			}
 		});
 		
@@ -109,6 +138,7 @@ public class AboutMeActivity extends Activity {
 	}
 	
 	private void startQRView(){
-//		Intent openCameraScanningIntent = new Intent(this, CaptureActivity.class);
+		Intent openCameraScanningIntent = new Intent(this, CaptureActivity.class);
+		this.startActivityForResult(openCameraScanningIntent, Constants.CAPTURE_INTENT_REQUEST);
 	}
 }

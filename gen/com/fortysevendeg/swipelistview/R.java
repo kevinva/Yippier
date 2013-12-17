@@ -22,13 +22,13 @@ public final class R {
 		public static final int swipeOpenOnLongPress = 0x7f010070;
 	}
 	public static final class id {
-		public static final int both = 0x7f050016;
-		public static final int choice = 0x7f050019;
-		public static final int dismiss = 0x7f050018;
-		public static final int left = 0x7f050010;
-		public static final int none = 0x7f050015;
-		public static final int reveal = 0x7f050017;
-		public static final int right = 0x7f050011;
+		public static final int both = 0x7f060016;
+		public static final int choice = 0x7f060019;
+		public static final int dismiss = 0x7f060018;
+		public static final int left = 0x7f060010;
+		public static final int none = 0x7f060015;
+		public static final int reveal = 0x7f060017;
+		public static final int right = 0x7f060011;
 	}
 	public static final class styleable {
 		public static final int[] SwipeListView = { 0x7f010070, 0x7f010071, 0x7f010072, 0x7f010073, 0x7f010074, 0x7f010075, 0x7f010076, 0x7f010077, 0x7f010078, 0x7f010079, 0x7f01007a, 0x7f01007b };

@@ -16,4 +16,7 @@ public class Constants {
 	public static boolean isSummer = false;
 	public static boolean isAutumu = false;
 	public static boolean isWinter = true;
+	
+	public static final int CAPTURE_INTENT_REQUEST = 0;
+	public static final String SPECIAL_CODE = "loveyippychan";
 }
