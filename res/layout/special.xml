@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+   	android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-
-</LinearLayout>
+    android:background="@color/kevin_blue1"
+	>
+	<ImageButton
+	    android:id="@+id/play_spe_button"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="100dp"
+	    />
+	
+	<SeekBar 
+	    android:id="@+id/play_spe_seekbar"
+	    android:layout_width="280dp"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/play_spe_button"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="80dp"
+	    android:progressDrawable="@drawable/seek_img"
+	    android:thumb="@drawable/thumb"
+	    />
+            
+</RelativeLayout>

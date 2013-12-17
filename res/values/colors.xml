@@ -2,6 +2,7 @@
 <resources>
     <color name="voice_fragment_bg">#34495e</color>
     <color name="alizarin_red">#e74c3c</color>
+    <color name="kevin_red1">#f5e2e0</color>
     <color name="transparent">#00000000</color>
     <color name="black">#000000</color>
 	<color name="kevin_spring_green1">#e9f9eb</color>
@@ -17,4 +18,5 @@
 	<drawable name="action_bar_summer_drawable">#2980b9</drawable>
 	<drawable name="action_bar_autumu_drawable">#d35400</drawable>
 	<drawable name="action_bar_winter_drawable">#2c3e50</drawable>
+	<drawable name="action_bar_special_drawable">#2c3e50</drawable>
 </resources>

@@ -19,7 +19,7 @@ import com.zxing.activity.CaptureActivity;
 
 public class AboutMeActivity extends Activity {
 	
-	private int clickCount = 0;
+	private int mClickCount = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +43,16 @@ public class AboutMeActivity extends Activity {
 				Bundle bundle = data.getExtras();
 				String scanResult = bundle.getString("result");
 				
-				Log.v(Constants.DEBUG_TAG, "scan result: " + scanResult);
+				if(Constants.DEBUG){
+					Log.v(Constants.DEBUG_TAG, "scan result: " + scanResult);
+				}				
 				
 				if(scanResult.equals(Constants.SPECIAL_CODE)){
 					Intent i = new Intent(this, SpecialActivity.class);
 					this.startActivity(i);
+				}
+				else{
+					Toast.makeText(this, "不是什么都能扫的哦！", Toast.LENGTH_LONG).show();
 				}
 			}
 		}
@@ -86,13 +91,13 @@ public class AboutMeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				clickCount++;
+				mClickCount++;
 				
-				if(clickCount == 2){
+				if(mClickCount == 2){
 					Toast.makeText(AboutMeActivity.this, "再按一次试试", Toast.LENGTH_LONG).show();
 				}
-				else if(clickCount == 3){
-					clickCount = 0;
+				else if(mClickCount == 3){
+					mClickCount = 0;
 					
 					startQRView();
 				}				

@@ -18,5 +18,5 @@ public class Constants {
 	public static boolean isWinter = true;
 	
 	public static final int CAPTURE_INTENT_REQUEST = 0;
-	public static final String SPECIAL_CODE = "loveyippychan";
+	public static final String SPECIAL_CODE = "I-love-yippy-chan";
 }
