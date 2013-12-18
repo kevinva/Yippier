@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,21 +63,26 @@ public class AboutMeActivity extends Activity {
 	private void initLayout(){
 		Drawable actionBarDrawable = null;
 		int labelColorRes = 0;
+		int mainBgColorRes = 0;
 		if(Constants.isSrping){
 			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_spring_drawable);
 			labelColorRes = R.color.kevin_spring_green2;
+			mainBgColorRes = R.color.kevin_spring_green1;
 		}
 		else if(Constants.isSummer){
 			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_summer_drawable);
 			labelColorRes = R.color.kevin_summer_blue2;
+			mainBgColorRes = R.color.kevin_summer_blue1;
 		}
 		else if(Constants.isAutumu){
 			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_autumu_drawable);
 			labelColorRes = R.color.kevin_autumu_yellow2;
+			mainBgColorRes = R.color.kevin_autumu_yellow1;
 		}
 		else{
 			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_winter_drawable);
 			labelColorRes = R.color.kevin_blue1;
+			mainBgColorRes = R.color.clouds;
 		}
 		
 		this.getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -84,6 +90,9 @@ public class AboutMeActivity extends Activity {
 		this.getActionBar().setDisplayShowTitleEnabled(true);
 		this.getActionBar().setTitle("¹ØÓÚ");
 		this.getActionBar().setBackgroundDrawable(actionBarDrawable);
+		
+		RelativeLayout mainLayout = (RelativeLayout) this.findViewById(R.id.about_me_layout);
+		mainLayout.setBackgroundColor(this.getResources().getColor(mainBgColorRes));
 		
 		ImageButton logoBtn = (ImageButton) this.findViewById(R.id.logo_btn);
 		logoBtn.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +116,7 @@ public class AboutMeActivity extends Activity {
 		
 		TextView versionLabel = (TextView) findViewById(R.id.version_label);
 		versionLabel.setText("V" + this.getVersionName());
+		versionLabel.setTextColor(this.getResources().getColor(labelColorRes));
 		
 		TextView copyRightLabel1 = (TextView) findViewById(R.id.copyright_label1);
 		copyRightLabel1.setTextColor(this.getResources().getColor(labelColorRes));

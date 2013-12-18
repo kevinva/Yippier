@@ -8,6 +8,7 @@ import love.yippy.chan.utils.Constants;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -39,22 +40,29 @@ public class MyPreferenceActivity extends PreferenceActivity {
 	}
 	
 	private void initLayout(){
-		this.getActionBar().setDisplayHomeAsUpEnabled(true);
-		this.getActionBar().setTitle("设置");
 		Drawable actionBarDrawable = null;
+		int bgColorRes = 0;
 		if(Constants.isSrping){
 			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_spring_drawable);
+			bgColorRes = R.color.kevin_spring_green1;
 		}
 		else if(Constants.isSummer){
 			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_summer_drawable);	
+			bgColorRes = R.color.kevin_summer_blue1;
 		}
 		else if(Constants.isAutumu){
 			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_autumu_drawable);
+			bgColorRes = R.color.kevin_autumu_yellow1;
 		}
 		else{
 			actionBarDrawable = this.getResources().getDrawable(R.drawable.action_bar_winter_drawable);
+			bgColorRes = R.color.clouds;
 		}
 		this.getActionBar().setBackgroundDrawable(actionBarDrawable);
+		this.getActionBar().setDisplayHomeAsUpEnabled(true);
+		this.getActionBar().setTitle("设置");
+		
+		this.getListView().setBackgroundColor(this.getResources().getColor(bgColorRes));
 		
 		MyLabelPreference audioFileLocationPref = (MyLabelPreference) this.findPreference("audio_file_location");
 		audioFileLocationPref.title = "录音文件存储位置";
