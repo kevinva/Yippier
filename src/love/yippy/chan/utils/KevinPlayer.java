@@ -2,6 +2,7 @@ package love.yippy.chan.utils;
 
 import java.io.IOException;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 
 
@@ -67,6 +68,36 @@ public class KevinPlayer {
 			mPlayer.start();
 			
 			new Thread(mPlayingProgressTask).start();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void play(Context ctx, int soundResId){
+		if(ctx == null){
+			return;
+		}
+		
+		try {
+			mPlayer = MediaPlayer.create(ctx, soundResId);
+			mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+				
+				@Override
+				public void onCompletion(MediaPlayer mp) {
+					// TODO Auto-generated method stub
+					if(mListener != null){
+						mListener.onFinishPlaying(KevinPlayer.this);
+					}
+				}
+			});
+			mPlayer.prepare();
+			mPlayer.start();
+			
+//			new Thread(mPlayingProgressTask).start();
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

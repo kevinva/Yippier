@@ -1,25 +1,40 @@
 package love.yippy.chan;
 
-import love.yippy.chan.utils.Constants;
+import love.yippy.chan.utils.KevinPlayer;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceHolder.Callback;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 
 public class SpecialActivity extends Activity {
 
+	private KevinPlayer mPlayer;
+	private SeekBar mPlayingSeekBar;
+	
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
 		this.setContentView(R.layout.special);
 		
 		initLayout();
+		
+		this.mPlayer = new KevinPlayer();
+		mPlayer.setOnPlayingListener(new KevinPlayer.onPlayingListener() {
+			
+			@Override
+			public void onUpdateProgress(KevinPlayer player) {
+				// TODO Auto-generated method stub
+				mPlayingSeekBar.setProgress(player.getCurrentPosition() * 100 / player.getDuration());
+			}
+			
+			@Override
+			public void onFinishPlaying(KevinPlayer player) {
+				// TODO Auto-generated method stub
+				mPlayingSeekBar.setProgress(0);
+			}
+		});
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item){
@@ -39,6 +54,8 @@ public class SpecialActivity extends Activity {
 		this.getActionBar().setTitle("Special");
 		this.getActionBar().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.action_bar_special_drawable));
 		
+		mPlayingSeekBar = (SeekBar) this.findViewById(R.id.play_spe_seekbar);
+		
 		ImageButton playBtn = (ImageButton) this.findViewById(R.id.play_spe_button);
 		playBtn.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.button_play_spe_drawable));
 		playBtn.setOnClickListener(new View.OnClickListener() {
@@ -46,8 +63,16 @@ public class SpecialActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-			
+				ImageButton clicked = (ImageButton) v;
 				
+				if(!(mPlayer.isPlaying())){
+					mPlayer.play(SpecialActivity.this, R.raw.special);
+					clicked.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pause_special_drawable));
+				}
+				else{
+					mPlayer.pause();
+					clicked.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_play_spe_drawable));
+				}
 				
 			}
 		});
