@@ -3,6 +3,7 @@ package love.yippy.chan.utils;
 import java.io.IOException;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 
 
@@ -37,6 +38,7 @@ public class KevinPlayer {
 	
 	private MediaPlayer mPlayer;
 	private onPlayingListener mListener;
+
 	
 	public void setOnPlayingListener(onPlayingListener listener){
 		if(listener != mListener){
@@ -54,6 +56,7 @@ public class KevinPlayer {
 		mPlayer = new MediaPlayer(); //本地播放不宜用MediaPlayer.create(...)方法
 		try {
 			mPlayer.setDataSource(filePath);
+	
 			mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 				
 				@Override
@@ -62,6 +65,9 @@ public class KevinPlayer {
 					if(mListener != null){
 						mListener.onFinishPlaying(KevinPlayer.this);
 					}
+					
+					mPlayer.release();
+					mPlayer = null;
 				}
 			});
 			mPlayer.prepare();
@@ -77,33 +83,44 @@ public class KevinPlayer {
 		}
 	}
 	
-	public void play(Context ctx, int soundResId){
-		if(ctx == null){
-			return;
-		}
-		
-		try {
-			mPlayer = MediaPlayer.create(ctx, soundResId);
-			mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-				
-				@Override
-				public void onCompletion(MediaPlayer mp) {
-					// TODO Auto-generated method stub
-					if(mListener != null){
-						mListener.onFinishPlaying(KevinPlayer.this);
-					}
-				}
-			});
-			mPlayer.prepare();
+	public void play(Context ctx, String fileName){		
+		if(mPlayer != null){
 			mPlayer.start();
+			new Thread(mPlayingProgressTask).start();
+		}
+		else{
+			if(ctx == null || fileName == null){
+				return;
+			}
 			
-//			new Thread(mPlayingProgressTask).start();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				mPlayer = new MediaPlayer();
+				AssetFileDescriptor assetDescriptor = ctx.getAssets().openFd(fileName);
+				mPlayer.setDataSource(assetDescriptor.getFileDescriptor(), assetDescriptor.getStartOffset(), assetDescriptor.getLength());
+				mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+					
+					@Override
+					public void onCompletion(MediaPlayer mp) {
+						// TODO Auto-generated method stub
+						if(mListener != null){
+							mListener.onFinishPlaying(KevinPlayer.this);
+						}
+						
+						mPlayer.release();
+						mPlayer = null;
+					}
+				});
+				mPlayer.prepare();
+				mPlayer.start();
+				
+				new Thread(mPlayingProgressTask).start();
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -121,7 +138,6 @@ public class KevinPlayer {
 		if(mPlayer == null){
 			return;
 		}
-		
 		mPlayer.pause();
 	}
 	
