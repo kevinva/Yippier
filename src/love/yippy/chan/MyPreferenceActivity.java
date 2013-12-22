@@ -74,14 +74,17 @@ public class MyPreferenceActivity extends PreferenceActivity {
 				// TODO Auto-generated method stub
 
 				mClickCount++;
-				if(mClickCount >=7 && mClickCount <= 9){
-					Toast.makeText(MyPreferenceActivity.this, "" + (10 - mClickCount), Toast.LENGTH_SHORT).show();
-					if(mClickCount == 9){
-						mClickCount = 0;
-						
-						Intent i = new Intent(MyPreferenceActivity.this, SpecialActivity.class);
-						startActivity(i);
-					}
+				if(mClickCount == 30 || mClickCount == 60){
+					Toast.makeText(MyPreferenceActivity.this, "" + mClickCount, Toast.LENGTH_SHORT).show();
+				}
+				else if(mClickCount == 98){
+					Toast.makeText(MyPreferenceActivity.this, "期待期待!再点一次试试:)", Toast.LENGTH_SHORT).show();
+				}
+				else if(mClickCount == 99){
+					mClickCount = 0;
+					
+					Intent i = new Intent(MyPreferenceActivity.this, SpecialActivity.class);
+					startActivity(i);
 				}
 				
 				return false;

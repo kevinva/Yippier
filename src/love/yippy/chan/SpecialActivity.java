@@ -15,7 +15,7 @@ public class SpecialActivity extends Activity {
 
 	private KevinPlayer mPlayer;
 	private SeekBar mPlayingSeekBar;
-	
+	private ImageButton mPlayButton;
 	
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -36,6 +36,8 @@ public class SpecialActivity extends Activity {
 			public void onFinishPlaying(KevinPlayer player) {
 				// TODO Auto-generated method stub
 				mPlayingSeekBar.setProgress(0);
+				
+				mPlayButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_play_spe_drawable));
 			}
 		});
 	}
@@ -43,6 +45,10 @@ public class SpecialActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item){
 		switch(item.getItemId()){
 		case android.R.id.home:
+			if(mPlayer.isPlaying()){
+				mPlayer.stop();
+			}
+			
 			finish();
 			break;
 		default:
@@ -83,22 +89,21 @@ public class SpecialActivity extends Activity {
 			}
 		});
 		
-		ImageButton playBtn = (ImageButton) this.findViewById(R.id.play_spe_button);
-		playBtn.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.button_play_spe_drawable));
-		playBtn.setOnClickListener(new View.OnClickListener() {
+		mPlayButton = (ImageButton) this.findViewById(R.id.play_spe_button);
+		mPlayButton.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.button_play_spe_drawable));
+		mPlayButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				ImageButton clicked = (ImageButton) v;
 				
 				if(!(mPlayer.isPlaying())){
 					mPlayer.play(SpecialActivity.this, "special.mp3");
-					clicked.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pause_special_drawable));
+					mPlayButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pause_special_drawable));
 				}
 				else{
 					mPlayer.pause();
-					clicked.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_play_spe_drawable));
+					mPlayButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_play_spe_drawable));
 				}
 				
 			}
